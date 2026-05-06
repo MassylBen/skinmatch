@@ -1,0 +1,88 @@
+{
+  "version": 2,
+  "name": "skinmatch",
+  "buildCommand": null,
+  "outputDirectory": "src",
+  "routes": [
+    {
+      "src": "/sw.js",
+      "dest": "/public/sw.js"
+    },
+    {
+      "src": "/manifest.json",
+      "dest": "/public/manifest.json"
+    },
+    {
+      "src": "/offline.html",
+      "dest": "/public/offline.html"
+    },
+    {
+      "src": "/icons/(.*)",
+      "dest": "/public/icons/$1"
+    },
+    {
+      "src": "/screenshots/(.*)",
+      "dest": "/public/screenshots/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/src/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/src/js/(.*)\\.js",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" },
+        { "key": "Content-Type",  "value": "application/javascript; charset=utf-8" }
+      ]
+    },
+    {
+      "source": "/src/css/(.*)\\.css",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" },
+        { "key": "Content-Type",  "value": "text/css; charset=utf-8" }
+      ]
+    },
+    {
+      "source": "/src/data/(.*)\\.json",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400" },
+        { "key": "Content-Type",  "value": "application/json; charset=utf-8" }
+      ]
+    },
+    {
+      "source": "/public/icons/(.*)\\.png",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=604800, immutable" }
+      ]
+    },
+    {
+      "source": "/sw.js",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" },
+        { "key": "Service-Worker-Allowed", "value": "/" }
+      ]
+    },
+    {
+      "source": "/manifest.json",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=86400" }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options",  "value": "nosniff" },
+        { "key": "X-Frame-Options",         "value": "DENY" },
+        { "key": "X-XSS-Protection",        "value": "1; mode=block" },
+        { "key": "Referrer-Policy",         "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy",      "value": "camera=(self), microphone=(), geolocation=()" }
+      ]
+    }
+  ],
+  "env": {
+    "SKINMATCH_SUPABASE_URL":      "@skinmatch-supabase-url",
+    "SKINMATCH_SUPABASE_ANON_KEY": "@skinmatch-supabase-anon-key"
+  }
+}

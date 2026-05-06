@@ -1,0 +1,634 @@
+{
+  "fr": {
+    "ui": {
+      "welcome_title": "Votre routine.<br>Sur mesure.",
+      "welcome_desc": "Diagnostic de peau personnalisé selon votre profil, votre âge et votre budget.",
+      "btn_register": "Créer un compte",
+      "btn_login": "Se connecter",
+      "btn_guest": "Continuer sans compte",
+      "btn_start": "Commencer mon diagnostic",
+      "btn_scan": "Scanner ma peau avec l'IA",
+      "btn_continue": "Continuer",
+      "btn_generate": "Générer ma routine",
+      "btn_restart": "Recommencer",
+      "legal": "En continuant, vous acceptez nos conditions d'utilisation.",
+      "result_eyebrow": "Votre routine personnalisée",
+      "share_btn": "Partager ma routine",
+      "order_title": "Ordre d'application",
+      "tab_am": "☀️ Matin",
+      "tab_pm": "🌙 Soir",
+      "products_title": "Les produits sélectionnés",
+      "conseil_label": "💡 Conseil expert",
+      "allergy_title": "Allergies enregistrées",
+      "allergy_text": "Vérifiez la composition. Allergènes :",
+      "suivi_title": "Suivi à 4 semaines",
+      "suivi_text": "Votre peau évolue. Revenez dans 4 semaines pour ajuster votre routine.",
+      "suivi_btn": "Refaire le diagnostic",
+      "fiche_btn": "En savoir plus",
+      "note_yuka": "🥕 Note Yuka",
+      "budget_total": "Budget estimé :",
+      "buy_note": "Certifiée pharmacie française · Livraison offerte dès 49€",
+      "share_footer": "Généré par SkinMatch · Your Skin, Your Routine",
+      "why_prefix": "Sélectionné pour votre peau",
+      "why_against": "efficace contre",
+      "intro_tpl": "Votre routine sur-mesure pour une peau {skin}{age}. Chaque produit sélectionné selon vos problématiques et votre budget."
+    },
+    "skin_types": {
+      "seche": {
+        "label": "Sèche",
+        "sub": "Tiraillements, manque d'hydratation"
+      },
+      "grasse": {
+        "label": "Grasse",
+        "sub": "Brillance, pores dilatés"
+      },
+      "mixte": {
+        "label": "Mixte",
+        "sub": "Zone T grasse, joues normales"
+      },
+      "normale": {
+        "label": "Normale",
+        "sub": "Équilibrée, peu de soucis"
+      },
+      "sensible": {
+        "label": "Sensible",
+        "sub": "Réactive, rougeurs fréquentes"
+      }
+    },
+    "skin_labels": {
+      "seche": "sèche",
+      "grasse": "grasse",
+      "mixte": "mixte",
+      "normale": "normale",
+      "sensible": "sensible"
+    },
+    "intro_skin": {
+      "seche": "sèche",
+      "grasse": "grasse",
+      "mixte": "mixte",
+      "normale": "normale",
+      "sensible": "sensible"
+    },
+    "ages": [
+      {
+        "id": "18-25",
+        "label": "18 – 25 ans",
+        "sub": "Prévention & éclat"
+      },
+      {
+        "id": "26-35",
+        "label": "26 – 35 ans",
+        "sub": "Maintien & correction"
+      },
+      {
+        "id": "36-45",
+        "label": "36 – 45 ans",
+        "sub": "Anti-âge précoce"
+      },
+      {
+        "id": "46+",
+        "label": "46 ans et +",
+        "sub": "Correction intense"
+      }
+    ],
+    "concerns": [
+      {
+        "id": "acne",
+        "label": "Acné / Boutons"
+      },
+      {
+        "id": "taches",
+        "label": "Taches & hyperpigmentation"
+      },
+      {
+        "id": "rides",
+        "label": "Rides & anti-âge"
+      },
+      {
+        "id": "pores",
+        "label": "Pores dilatés"
+      },
+      {
+        "id": "rougeurs",
+        "label": "Rougeurs / Couperose"
+      },
+      {
+        "id": "cernes",
+        "label": "Cernes & poches"
+      },
+      {
+        "id": "eclat",
+        "label": "Teint terne / Éclat"
+      },
+      {
+        "id": "deshydratation",
+        "label": "Déshydratation"
+      },
+      {
+        "id": "imperfections",
+        "label": "Points noirs"
+      },
+      {
+        "id": "sensibilite",
+        "label": "Réactivité / Irritations"
+      }
+    ],
+    "concern_labels": {
+      "acne": "l'acné",
+      "taches": "les taches",
+      "rides": "les rides",
+      "pores": "les pores dilatés",
+      "rougeurs": "les rougeurs",
+      "cernes": "les cernes",
+      "eclat": "le manque d'éclat",
+      "deshydratation": "la déshydratation",
+      "imperfections": "les points noirs",
+      "sensibilite": "la réactivité"
+    },
+    "budgets": [
+      {
+        "id": "low",
+        "label": "Économique",
+        "sub": "< 15€ / produit",
+        "phrase": "Les meilleures formules ne coûtent pas forcément cher 💛"
+      },
+      {
+        "id": "mid",
+        "label": "Modéré",
+        "sub": "15€ – 50€ / produit",
+        "phrase": "Le bon équilibre entre efficacité et budget"
+      },
+      {
+        "id": "high",
+        "label": "Premium",
+        "sub": "> 50€ / produit",
+        "phrase": "La haute cosmétique au service de votre peau"
+      },
+      {
+        "id": "mix",
+        "label": "Flexible",
+        "sub": "Pas de limite",
+        "phrase": "On mixe le meilleur pour vous."
+      }
+    ],
+    "routines": [
+      {
+        "id": "simple",
+        "label": "Essentielle",
+        "sub": "3 étapes, 5 minutes par jour"
+      },
+      {
+        "id": "complete",
+        "label": "Complète",
+        "sub": "Matin + soir, résultats optimaux"
+      },
+      {
+        "id": "specifique",
+        "label": "Ciblée",
+        "sub": "Un seul soin pour un problème précis"
+      }
+    ],
+    "allergies": [
+      "Parfums / Fragrances",
+      "Parabènes",
+      "Alcool",
+      "Sulfates (SLS/SLES)",
+      "Silicones",
+      "Huiles essentielles",
+      "Acide salicylique",
+      "Rétinol",
+      "Vitamine C",
+      "Acides (AHA/BHA)",
+      "Aucune allergie connue"
+    ],
+    "conseils": {
+      "acne": "Évitez de toucher votre visage. Changez votre taie d'oreiller chaque semaine. Introduisez les actifs progressivement.",
+      "taches": "Le SPF le matin est indispensable — sans lui, les taches s'aggravent au soleil.",
+      "rides": "Le rétinol se commence 2×/semaine le soir, on augmente progressivement. Toujours associé à un SPF.",
+      "eclat": "Hydratation interne et sommeil sont aussi importants que votre routine. 1,5L d'eau par jour minimum.",
+      "deshydratation": "Appliquez le sérum sur peau légèrement humide pour maximiser l'absorption de l'acide hyaluronique.",
+      "rougeurs": "Évitez l'eau trop chaude. Bannissez les produits avec alcool, parfum ou menthol.",
+      "pores": "La régularité du BHA et du niacinamide réduit visiblement les pores en 4 semaines.",
+      "imperfections": "N'exprimez jamais les points noirs à la main, utilisez un exfoliant BHA 2-3 fois par semaine.",
+      "sensibilite": "Introduisez un seul produit à la fois, attendez 2 semaines avant d'en ajouter un autre.",
+      "cernes": "Appliquez par tapotements doux, jamais en frottant. La tête légèrement surélevée la nuit aide."
+    }
+  },
+  "en": {
+    "ui": {
+      "welcome_title": "Your routine.<br>Tailored for you.",
+      "welcome_desc": "Personalized skin diagnosis and recommendations based on your profile, age and budget.",
+      "btn_register": "Create an account",
+      "btn_login": "Sign in",
+      "btn_guest": "Continue without account",
+      "btn_start": "Start my diagnosis",
+      "btn_scan": "Scan my skin with AI",
+      "btn_continue": "Continue",
+      "btn_generate": "Generate my routine",
+      "btn_restart": "Restart",
+      "legal": "By continuing, you agree to our terms of use.",
+      "result_eyebrow": "Your personalized routine",
+      "share_btn": "Share my routine",
+      "order_title": "Application order",
+      "tab_am": "☀️ Morning",
+      "tab_pm": "🌙 Evening",
+      "products_title": "Selected products",
+      "conseil_label": "💡 Expert tip",
+      "allergy_title": "Registered allergies",
+      "allergy_text": "Check the ingredients. Declared allergens:",
+      "suivi_title": "4-week follow-up",
+      "suivi_text": "Your skin evolves. Come back in 4 weeks to adjust your routine.",
+      "suivi_btn": "Redo the diagnosis",
+      "fiche_btn": "Learn more",
+      "note_yuka": "🥕 Yuka score",
+      "budget_total": "Estimated budget:",
+      "buy_note": "French certified pharmacy · Free delivery from €49",
+      "share_footer": "Generated by SkinMatch · Your Skin, Your Routine",
+      "why_prefix": "Selected for your",
+      "why_against": "effective against",
+      "intro_tpl": "Your tailored routine for {skin} skin{age}. Each product selected based on your concerns and budget."
+    },
+    "skin_types": {
+      "seche": {
+        "label": "Dry",
+        "sub": "Tightness, lack of hydration"
+      },
+      "grasse": {
+        "label": "Oily",
+        "sub": "Shine, enlarged pores"
+      },
+      "mixte": {
+        "label": "Combination",
+        "sub": "Oily T-zone, normal cheeks"
+      },
+      "normale": {
+        "label": "Normal",
+        "sub": "Balanced, few concerns"
+      },
+      "sensible": {
+        "label": "Sensitive",
+        "sub": "Reactive, frequent redness"
+      }
+    },
+    "skin_labels": {
+      "seche": "dry",
+      "grasse": "oily",
+      "mixte": "combination",
+      "normale": "normal",
+      "sensible": "sensitive"
+    },
+    "intro_skin": {
+      "seche": "dry",
+      "grasse": "oily",
+      "mixte": "combination",
+      "normale": "normal",
+      "sensible": "sensitive"
+    },
+    "ages": [
+      {
+        "id": "18-25",
+        "label": "18 – 25",
+        "sub": "Prevention & radiance"
+      },
+      {
+        "id": "26-35",
+        "label": "26 – 35",
+        "sub": "Maintenance & correction"
+      },
+      {
+        "id": "36-45",
+        "label": "36 – 45",
+        "sub": "Early anti-aging"
+      },
+      {
+        "id": "46+",
+        "label": "46+",
+        "sub": "Intensive correction"
+      }
+    ],
+    "concerns": [
+      {
+        "id": "acne",
+        "label": "Acne / Blemishes"
+      },
+      {
+        "id": "taches",
+        "label": "Dark spots & hyperpigmentation"
+      },
+      {
+        "id": "rides",
+        "label": "Wrinkles & anti-aging"
+      },
+      {
+        "id": "pores",
+        "label": "Enlarged pores"
+      },
+      {
+        "id": "rougeurs",
+        "label": "Redness / Rosacea"
+      },
+      {
+        "id": "cernes",
+        "label": "Dark circles & puffiness"
+      },
+      {
+        "id": "eclat",
+        "label": "Dull complexion / Radiance"
+      },
+      {
+        "id": "deshydratation",
+        "label": "Dehydration"
+      },
+      {
+        "id": "imperfections",
+        "label": "Blackheads"
+      },
+      {
+        "id": "sensibilite",
+        "label": "Sensitivity / Irritations"
+      }
+    ],
+    "concern_labels": {
+      "acne": "acne",
+      "taches": "dark spots",
+      "rides": "wrinkles",
+      "pores": "enlarged pores",
+      "rougeurs": "redness",
+      "cernes": "dark circles",
+      "eclat": "dull complexion",
+      "deshydratation": "dehydration",
+      "imperfections": "blackheads",
+      "sensibilite": "sensitivity"
+    },
+    "budgets": [
+      {
+        "id": "low",
+        "label": "Budget-friendly",
+        "sub": "< €15 / product",
+        "phrase": "Great skincare doesn't have to break the bank 💛"
+      },
+      {
+        "id": "mid",
+        "label": "Mid-range",
+        "sub": "€15 – €50 / product",
+        "phrase": "The sweet spot between results and value"
+      },
+      {
+        "id": "high",
+        "label": "Premium",
+        "sub": "> €50 / product",
+        "phrase": "High-end formulas for exceptional skin"
+      },
+      {
+        "id": "mix",
+        "label": "Flexible",
+        "sub": "No limit",
+        "phrase": "We mix the best options just for you"
+      }
+    ],
+    "routines": [
+      {
+        "id": "simple",
+        "label": "Essential",
+        "sub": "3 steps, 5 minutes a day"
+      },
+      {
+        "id": "complete",
+        "label": "Complete",
+        "sub": "Morning + evening, optimal results"
+      },
+      {
+        "id": "specifique",
+        "label": "Targeted",
+        "sub": "One treatment for one specific concern"
+      }
+    ],
+    "allergies": [
+      "Fragrances / Perfumes",
+      "Parabens",
+      "Alcohol",
+      "Sulfates (SLS/SLES)",
+      "Silicones",
+      "Essential oils",
+      "Salicylic acid",
+      "Retinol",
+      "Vitamin C",
+      "Acids (AHA/BHA)",
+      "No known allergies"
+    ],
+    "conseils": {
+      "acne": "Avoid touching your face. Change your pillowcase weekly. Introduce active ingredients gradually.",
+      "taches": "Morning SPF is essential — without it, dark spots worsen in the sun.",
+      "rides": "Start retinol 2x/week in the evening, gradually increase. Always pair with morning SPF.",
+      "eclat": "Internal hydration and sleep are as important as your routine. Drink 1.5L of water daily.",
+      "deshydratation": "Apply serum on slightly damp skin to maximize hyaluronic acid absorption.",
+      "rougeurs": "Avoid hot water. Ban products with alcohol, fragrance, or menthol.",
+      "pores": "Regular BHA and niacinamide visibly reduce pores in 4 weeks.",
+      "imperfections": "Never squeeze blackheads by hand, use a BHA exfoliant 2-3 times a week.",
+      "sensibilite": "Introduce one product at a time, wait 2 weeks before adding another.",
+      "cernes": "Apply with gentle tapping, never rubbing. Sleeping with head slightly elevated helps."
+    }
+  },
+  "es": {
+    "ui": {
+      "welcome_title": "Tu rutina.<br>A tu medida.",
+      "welcome_desc": "Diagnóstico de piel personalizado según tu perfil, edad y presupuesto.",
+      "btn_register": "Crear una cuenta",
+      "btn_login": "Iniciar sesión",
+      "btn_guest": "Continuar sin cuenta",
+      "btn_start": "Comenzar mi diagnóstico",
+      "btn_scan": "Escanear mi piel con IA",
+      "btn_continue": "Continuar",
+      "btn_generate": "Generar mi rutina",
+      "btn_restart": "Empezar de nuevo",
+      "legal": "Al continuar, aceptas nuestros términos de uso.",
+      "result_eyebrow": "Tu rutina personalizada",
+      "share_btn": "Compartir mi rutina",
+      "order_title": "Orden de aplicación",
+      "tab_am": "☀️ Mañana",
+      "tab_pm": "🌙 Noche",
+      "products_title": "Productos seleccionados",
+      "conseil_label": "💡 Consejo experto",
+      "allergy_title": "Alergias registradas",
+      "allergy_text": "Comprueba los ingredientes. Alérgenos declarados:",
+      "suivi_title": "Seguimiento a 4 semanas",
+      "suivi_text": "Tu piel evoluciona. Vuelve en 4 semanas para ajustar tu rutina.",
+      "suivi_btn": "Rehacer el diagnóstico",
+      "fiche_btn": "Más información",
+      "note_yuka": "🥕 Nota Yuka",
+      "budget_total": "Presupuesto estimado:",
+      "buy_note": "Farmacia francesa certificada · Envío gratuito desde 49€",
+      "share_footer": "Generado por SkinMatch · Your Skin, Your Routine",
+      "why_prefix": "Seleccionado para tu piel",
+      "why_against": "eficaz contra",
+      "intro_tpl": "Tu rutina a medida para piel {skin}{age}. Cada producto seleccionado según tus preocupaciones y presupuesto."
+    },
+    "skin_types": {
+      "seche":    { "label": "Seca",       "sub": "Tirantez, falta de hidratación" },
+      "grasse":   { "label": "Grasa",      "sub": "Brillo, poros dilatados" },
+      "mixte":    { "label": "Mixta",      "sub": "Zona T grasa, mejillas normales" },
+      "normale":  { "label": "Normal",     "sub": "Equilibrada, pocos problemas" },
+      "sensible": { "label": "Sensible",   "sub": "Reactiva, enrojecimiento frecuente" }
+    },
+    "skin_labels": {
+      "seche": "seca", "grasse": "grasa", "mixte": "mixta", "normale": "normal", "sensible": "sensible"
+    },
+    "intro_skin": {
+      "seche": "seca", "grasse": "grasa", "mixte": "mixta", "normale": "normal", "sensible": "sensible"
+    },
+    "ages": [
+      { "id": "18-25", "label": "18 – 25", "sub": "Prevención y luminosidad" },
+      { "id": "26-35", "label": "26 – 35", "sub": "Mantenimiento y corrección" },
+      { "id": "36-45", "label": "36 – 45", "sub": "Antiedad temprano" },
+      { "id": "46+",   "label": "46+",     "sub": "Corrección intensiva" }
+    ],
+    "concerns": [
+      { "id": "acne",           "label": "Acné / Granos" },
+      { "id": "taches",         "label": "Manchas e hiperpigmentación" },
+      { "id": "rides",          "label": "Arrugas y antienvejecimiento" },
+      { "id": "pores",          "label": "Poros dilatados" },
+      { "id": "rougeurs",       "label": "Rojeces / Rosácea" },
+      { "id": "cernes",         "label": "Ojeras e hinchazón" },
+      { "id": "eclat",          "label": "Tez apagada / Luminosidad" },
+      { "id": "deshydratation", "label": "Deshidratación" },
+      { "id": "imperfections",  "label": "Puntos negros" },
+      { "id": "sensibilite",    "label": "Sensibilidad / Irritaciones" }
+    ],
+    "concern_labels": {
+      "acne": "el acné", "taches": "las manchas", "rides": "las arrugas",
+      "pores": "los poros dilatados", "rougeurs": "el enrojecimiento",
+      "cernes": "las ojeras", "eclat": "la falta de luminosidad",
+      "deshydratation": "la deshidratación", "imperfections": "los puntos negros",
+      "sensibilite": "la sensibilidad"
+    },
+    "budgets": [
+      { "id": "low",  "label": "Económico",  "sub": "< 15€ / producto",    "phrase": "Los mejores activos no siempre cuestan más 💛" },
+      { "id": "mid",  "label": "Moderado",   "sub": "15€ – 50€ / producto", "phrase": "El equilibrio perfecto entre eficacia y precio" },
+      { "id": "high", "label": "Premium",    "sub": "> 50€ / producto",     "phrase": "Alta cosmética al servicio de tu piel" },
+      { "id": "mix",  "label": "Flexible",   "sub": "Sin límite",           "phrase": "Mezclamos lo mejor para ti" }
+    ],
+    "routines": [
+      { "id": "simple",    "label": "Esencial",  "sub": "3 pasos, 5 minutos al día" },
+      { "id": "complete",  "label": "Completa",  "sub": "Mañana + noche, resultados óptimos" },
+      { "id": "specifique","label": "Específica","sub": "Un tratamiento para un problema concreto" }
+    ],
+    "allergies": [
+      "Perfumes / Fragancias", "Parabenos", "Alcohol", "Sulfatos (SLS/SLES)",
+      "Siliconas", "Aceites esenciales", "Ácido salicílico", "Retinol",
+      "Vitamina C", "Ácidos (AHA/BHA)", "Sin alergias conocidas"
+    ],
+    "conseils": {
+      "acne":           "Evita tocarte la cara. Cambia la funda de almohada cada semana. Introduce los activos de forma progresiva.",
+      "taches":         "El SPF por la mañana es imprescindible — sin él, las manchas empeoran con el sol.",
+      "rides":          "Empieza el retinol 2×/semana por la noche, auméntalo poco a poco. Siempre con SPF por la mañana.",
+      "eclat":          "La hidratación interna y el sueño son tan importantes como tu rutina. 1,5L de agua al día como mínimo.",
+      "deshydratation": "Aplica el sérum sobre la piel ligeramente húmeda para maximizar la absorción del ácido hialurónico.",
+      "rougeurs":       "Evita el agua caliente. Elimina los productos con alcohol, perfume o mentol.",
+      "pores":          "El BHA y la niacinamida reducen visiblemente los poros en 4 semanas con uso regular.",
+      "imperfections":  "Nunca exprimas los puntos negros a mano; usa un exfoliante BHA 2-3 veces por semana.",
+      "sensibilite":    "Introduce un solo producto a la vez, espera 2 semanas antes de añadir otro.",
+      "cernes":         "Aplica con toquecitos suaves, sin frotar. Dormir con la cabeza ligeramente elevada también ayuda."
+    }
+  },
+  "ar": {
+    "ui": {
+      "welcome_title": "روتينك.<br>على قياسك.",
+      "welcome_desc": "تشخيص شخصي لبشرتك بناءً على ملفك الشخصي وعمرك وميزانيتك.",
+      "btn_register": "إنشاء حساب",
+      "btn_login": "تسجيل الدخول",
+      "btn_guest": "المتابعة بدون حساب",
+      "btn_start": "بدء تشخيصي",
+      "btn_scan": "مسح بشرتي بالذكاء الاصطناعي",
+      "btn_continue": "متابعة",
+      "btn_generate": "إنشاء روتيني",
+      "btn_restart": "البدء من جديد",
+      "legal": "بالمتابعة، فإنك توافق على شروط الاستخدام.",
+      "result_eyebrow": "روتينك الشخصي",
+      "share_btn": "مشاركة روتيني",
+      "order_title": "ترتيب التطبيق",
+      "tab_am": "☀️ الصباح",
+      "tab_pm": "🌙 المساء",
+      "products_title": "المنتجات المختارة",
+      "conseil_label": "💡 نصيحة الخبير",
+      "allergy_title": "الحساسيات المسجلة",
+      "allergy_text": "تحقق من المكونات. المواد المسببة للحساسية المُعلنة:",
+      "suivi_title": "متابعة بعد 4 أسابيع",
+      "suivi_text": "بشرتك تتطور. عد بعد 4 أسابيع لتعديل روتينك.",
+      "suivi_btn": "إعادة التشخيص",
+      "fiche_btn": "معرفة المزيد",
+      "note_yuka": "🥕 تقييم Yuka",
+      "budget_total": "الميزانية التقديرية:",
+      "buy_note": "صيدلية فرنسية معتمدة · توصيل مجاني من 49€",
+      "share_footer": "أُنشئ بواسطة SkinMatch · Your Skin, Your Routine",
+      "why_prefix": "مختار لبشرتك",
+      "why_against": "فعّال ضد",
+      "intro_tpl": "روتينك المخصص لبشرة {skin}{age}. كل منتج مختار وفق اهتماماتك وميزانيتك."
+    },
+    "skin_types": {
+      "seche":    { "label": "جافة",      "sub": "شعور بالشد، نقص في الترطيب" },
+      "grasse":   { "label": "دهنية",     "sub": "لمعان، مسام متسعة" },
+      "mixte":    { "label": "مختلطة",    "sub": "منطقة T دهنية، الخدود طبيعية" },
+      "normale":  { "label": "عادية",     "sub": "متوازنة، مشاكل نادرة" },
+      "sensible": { "label": "حساسة",     "sub": "تفاعلية، احمرار متكرر" }
+    },
+    "skin_labels": {
+      "seche": "جافة", "grasse": "دهنية", "mixte": "مختلطة", "normale": "عادية", "sensible": "حساسة"
+    },
+    "intro_skin": {
+      "seche": "جافة", "grasse": "دهنية", "mixte": "مختلطة", "normale": "عادية", "sensible": "حساسة"
+    },
+    "ages": [
+      { "id": "18-25", "label": "18 – 25", "sub": "الوقاية والإشراق" },
+      { "id": "26-35", "label": "26 – 35", "sub": "الصيانة والتصحيح" },
+      { "id": "36-45", "label": "36 – 45", "sub": "مكافحة الشيخوخة المبكرة" },
+      { "id": "46+",   "label": "46+",     "sub": "تصحيح مكثف" }
+    ],
+    "concerns": [
+      { "id": "acne",           "label": "حب الشباب" },
+      { "id": "taches",         "label": "البقع الداكنة وفرط التصبغ" },
+      { "id": "rides",          "label": "التجاعيد ومكافحة الشيخوخة" },
+      { "id": "pores",          "label": "المسام المتسعة" },
+      { "id": "rougeurs",       "label": "الاحمرار / الوردية" },
+      { "id": "cernes",         "label": "الهالات السوداء والانتفاخ" },
+      { "id": "eclat",          "label": "البشرة الباهتة / الإشراق" },
+      { "id": "deshydratation", "label": "الجفاف" },
+      { "id": "imperfections",  "label": "الرؤوس السوداء" },
+      { "id": "sensibilite",    "label": "الحساسية / التهيج" }
+    ],
+    "concern_labels": {
+      "acne": "حب الشباب", "taches": "البقع الداكنة", "rides": "التجاعيد",
+      "pores": "المسام المتسعة", "rougeurs": "الاحمرار",
+      "cernes": "الهالات السوداء", "eclat": "البشرة الباهتة",
+      "deshydratation": "الجفاف", "imperfections": "الرؤوس السوداء",
+      "sensibilite": "الحساسية"
+    },
+    "budgets": [
+      { "id": "low",  "label": "اقتصادي",  "sub": "أقل من 15€ / منتج",    "phrase": "أفضل المنتجات لا تكلف بالضرورة الكثير 💛" },
+      { "id": "mid",  "label": "متوسط",    "sub": "15€ – 50€ / منتج",     "phrase": "التوازن المثالي بين الفعالية والسعر" },
+      { "id": "high", "label": "فاخر",     "sub": "أكثر من 50€ / منتج",   "phrase": "التجميل الراقي في خدمة بشرتك" },
+      { "id": "mix",  "label": "مرن",      "sub": "بدون حد",              "phrase": "نختار الأفضل لك" }
+    ],
+    "routines": [
+      { "id": "simple",    "label": "أساسي",     "sub": "3 خطوات، 5 دقائق يومياً" },
+      { "id": "complete",  "label": "متكامل",    "sub": "صباحاً + مساءً، نتائج مثلى" },
+      { "id": "specifique","label": "مستهدف",    "sub": "علاج واحد لمشكلة محددة" }
+    ],
+    "allergies": [
+      "العطور / الروائح", "البارابين", "الكحول", "السلفات (SLS/SLES)",
+      "السيليكون", "الزيوت العطرية", "حمض الساليسيليك", "الريتينول",
+      "فيتامين C", "الأحماض (AHA/BHA)", "لا حساسية معروفة"
+    ],
+    "conseils": {
+      "acne":           "تجنب لمس وجهك. غير غطاء وسادتك كل أسبوع. أدخل المكونات النشطة تدريجياً.",
+      "taches":         "واقي الشمس صباحاً ضروري — بدونه تزداد البقع سوءاً في الشمس.",
+      "rides":          "ابدأ بالريتينول مرتين في الأسبوع ليلاً وزد تدريجياً. استخدم دائماً مع واقي الشمس صباحاً.",
+      "eclat":          "الترطيب الداخلي والنوم لا يقلان أهمية عن روتينك. اشرب 1.5 لتر من الماء يومياً.",
+      "deshydratation": "ضع الإيسينس على بشرة رطبة قليلاً لتعظيم امتصاص حمض الهيالورونيك.",
+      "rougeurs":       "تجنب الماء الساخن. ابتعد عن المنتجات التي تحتوي على الكحول أو العطور أو المنثول.",
+      "pores":          "يُقلص BHA والنياسيناميد المسام بشكل ملحوظ في 4 أسابيع مع الاستخدام المنتظم.",
+      "imperfections":  "لا تعصر الرؤوس السوداء بيدك أبداً؛ استخدم مقشراً BHA 2-3 مرات في الأسبوع.",
+      "sensibilite":    "أدخل منتجاً واحداً في المرة، وانتظر أسبوعين قبل إضافة آخر.",
+      "cernes":         "ضع بحركات نقر لطيفة، دون دعك. النوم مع رفع الرأس قليلاً يساعد أيضاً."
+    }
+  }
+}

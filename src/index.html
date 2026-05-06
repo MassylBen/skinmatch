@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light">
+<meta name="theme-color" content="#C4726A">
+<meta name="description" content="Diagnostic de peau personnalisé et routine skincare sur mesure en 60 secondes.">
+
+<!-- Open Graph (partage WhatsApp / réseaux sociaux) -->
+<meta property="og:title"       content="SkinMatch — Your Skin, Your Routine">
+<meta property="og:description" content="Diagnostic de peau personnalisé et routine sur mesure en 60 secondes.">
+<meta property="og:type"        content="website">
+<meta property="og:image"       content="/public/icons/icon-512.png">
+
+<!-- PWA -->
+<link rel="manifest" href="/public/manifest.json">
+<link rel="apple-touch-icon" href="/public/icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="SkinMatch">
+
+<!-- Favicon SVG -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23C4726A'/><rect x='5' y='5' width='90' height='90' rx='18' fill='%23D4887F'/><text y='72' x='50' text-anchor='middle' font-size='52' font-weight='700' fill='white' font-family='Georgia,serif'>SM</text></svg>">
+
+<title>SkinMatch — Your Skin, Your Routine</title>
+
+<!-- Fonts — preconnect pour la performance -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- CSS principal -->
+<link rel="stylesheet" href="/src/css/styles.css">
+</head>
+<body>
+<div class="app" id="app">
+
+<!-- ══ LANG ══ -->
+<div id="sc-lang">
+  <div style="min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 28px;background:linear-gradient(160deg,#C4726A 0%,#B5625A 100%);position:relative;overflow:hidden">
+    <div style="position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.08)"></div>
+    <div style="position:absolute;bottom:-30px;left:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.06)"></div>
+    <!-- Logo -->
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:48px">
+      <div style="width:52px;height:52px;border-radius:14px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#fff;font-family:Georgia,serif">SM</div>
+      <div style="font-family:Georgia,serif;font-size:28px;font-weight:700;color:#fff;letter-spacing:.5px">SkinMatch</div>
+    </div>
+    <!-- Titre -->
+    <div style="font-family:Georgia,serif;font-size:22px;font-weight:700;color:#fff;text-align:center;margin-bottom:8px;line-height:1.3">Choose your language</div>
+    <div style="font-family:Georgia,serif;font-size:18px;color:rgba(255,255,255,.75);text-align:center;margin-bottom:40px">Choisissez votre langue</div>
+    <!-- Boutons langue -->
+    <div style="display:flex;flex-direction:column;gap:14px;width:100%;max-width:320px">
+      <button onclick="setLang('fr')" style="width:100%;padding:18px 20px;border-radius:16px;border:none;background:#fff;cursor:pointer;display:flex;align-items:center;gap:16px;font-family:inherit;box-shadow:0 4px 20px rgba(0,0,0,.12);transition:transform .15s" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+        <div style="width:44px;height:44px;border-radius:10px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:28px">🇫🇷</div>
+        <div style="text-align:left">
+          <div style="font-size:16px;font-weight:700;color:#3D2B1F;font-family:Georgia,serif">Français</div>
+          <div style="font-size:12px;color:#9A8A85;margin-top:2px">France · Belgique · Suisse</div>
+        </div>
+        <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" viewBox="0 0 24 24" fill="#C4726A"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+      </button>
+      <button onclick="setLang('en')" style="width:100%;padding:18px 20px;border-radius:16px;border:none;background:#fff;cursor:pointer;display:flex;align-items:center;gap:16px;font-family:inherit;box-shadow:0 4px 20px rgba(0,0,0,.12);transition:transform .15s" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+        <div style="width:44px;height:44px;border-radius:10px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:28px">🇬🇧</div>
+        <div style="text-align:left">
+          <div style="font-size:16px;font-weight:700;color:#3D2B1F;font-family:Georgia,serif">English</div>
+          <div style="font-size:12px;color:#9A8A85;margin-top:2px">UK · US · International</div>
+        </div>
+        <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" viewBox="0 0 24 24" fill="#C4726A"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+      </button>
+    </div>
+    <!-- Plus de langues bientôt -->
+    <div style="margin-top:32px;font-size:12px;color:rgba(255,255,255,.55);text-align:center">More languages coming soon · D'autres langues bientôt</div>
+  </div>
+</div>
+
+
+<!-- ══ WELCOME ══ -->
+<div id="sc-welcome" class="hidden">
+
+  <!-- HERO IMPACT -->
+  <div style="min-height:100vh;display:flex;flex-direction:column;background:#FDF8F5;position:relative;overflow:hidden">
+
+    <!-- Fond décoratif -->
+    <div style="position:absolute;top:-80px;right:-80px;width:280px;height:280px;border-radius:50%;background:linear-gradient(135deg,#F2C4BC,#E8A09A);opacity:.35;pointer-events:none"></div>
+    <div style="position:absolute;bottom:-60px;left:-60px;width:200px;height:200px;border-radius:50%;background:linear-gradient(135deg,#D4A5A0,#C4887F);opacity:.2;pointer-events:none"></div>
+
+    <!-- Logo en haut -->
+    <div style="padding:28px 24px 0;display:flex;align-items:center;gap:10px">
+      <div style="width:36px;height:36px;border-radius:9px;background:#C4726A;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;font-family:Georgia,serif;box-shadow:0 2px 8px rgba(196,114,106,.35)">SM</div>
+      <div style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:#3D2B1F;letter-spacing:.5px">Skin<span style="color:#C4726A">Match</span></div>
+    </div>
+
+    <!-- Contenu principal centré -->
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 28px;text-align:center">
+
+      <!-- Icône centrale animée -->
+      <div style="width:100px;height:100px;border-radius:30px;background:linear-gradient(135deg,#C4726A,#A85A52);display:flex;align-items:center;justify-content:center;margin-bottom:32px;box-shadow:0 12px 40px rgba(196,114,106,.35)">
+        <span style="font-size:48px"></span>
+      </div>
+
+      <!-- Accroche principale -->
+      <div style="font-size:11px;font-weight:700;color:#C4726A;text-transform:uppercase;letter-spacing:3px;margin-bottom:16px" id="welcome-badge">Skincare Intelligence</div>
+
+      <h1 style="font-family:Georgia,serif;font-size:34px;font-weight:700;color:#3D2B1F;line-height:1.2;margin-bottom:16px" id="welcome-headline">Analyse ta peau<br>en 60 secondes</h1>
+
+      <p style="font-size:15px;color:#8B6F5E;line-height:1.7;margin-bottom:40px;max-width:300px" id="welcome-tagline">Découvre ta routine parfaite, personnalisée selon ton type de peau, ton âge et ton budget.</p>
+
+      <!-- Bouton principal CTA -->
+      <button onclick="ST.user={name:'',email:''};go('q1')" style="width:100%;max-width:320px;padding:18px 24px;border-radius:50px;border:none;background:linear-gradient(135deg,#C4726A,#A85A52);color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;box-shadow:0 8px 30px rgba(196,114,106,.45);margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:10px" id="btn-start">
+        <span id="btn-start-text">Commencer mon diagnostic</span>
+        <span style="font-size:18px">→</span>
+      </button>
+
+      <!-- Bouton scan IA -->
+      <button onclick="go('scan')" style="width:100%;max-width:320px;padding:14px 20px;border-radius:50px;border:2px solid #C4726A;background:transparent;color:#C4726A;font-size:14px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:28px" id="btn-scan">
+        <span style="font-size:16px">📸</span>
+        <span id="btn-scan-text">Scanner ma peau avec l'IA</span>
+        <span style="font-size:9px;background:#C4726A;color:#fff;border-radius:20px;padding:2px 7px;font-weight:700">NEW</span>
+      </button>
+
+      <!-- Stats sociales -->
+      <div style="display:flex;gap:24px;margin-bottom:32px">
+        <div style="text-align:center">
+          <div style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:#3D2B1F">160+</div>
+          <div style="font-size:10px;color:#B0958F;margin-top:2px" id="stat1-label">produits référencés</div>
+        </div>
+        <div style="width:1px;background:#EDD9D4"></div>
+        <div style="text-align:center">
+          <div style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:#3D2B1F">60s</div>
+          <div style="font-size:10px;color:#B0958F;margin-top:2px" id="stat2-label">pour ta routine</div>
+        </div>
+        <div style="width:1px;background:#EDD9D4"></div>
+        <div style="text-align:center">
+          <div style="font-family:Georgia,serif;font-size:20px;font-weight:700;color:#3D2B1F">100%</div>
+          <div style="font-size:10px;color:#B0958F;margin-top:2px" id="stat3-label">personnalisé</div>
+        </div>
+      </div>
+
+      <!-- Lien connexion discret -->
+      <div style="display:flex;align-items:center;gap:8px">
+        <button onclick="go('login')" style="padding:10px 20px;border-radius:50px;border:1.5px solid #C4726A;background:transparent;color:#C4726A;font-size:13px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif" id="btn-log">Se connecter</button>
+        <button onclick="go('register')" style="padding:10px 20px;border-radius:50px;border:none;background:#C4726A;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif" id="btn-reg">Créer un compte</button>
+      </div>
+
+      <p style="font-size:10px;color:#C8B4AE;margin-top:16px;line-height:1.5" id="btn-legal">En continuant, vous acceptez nos conditions d'utilisation.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SCAN DE PEAU ══ -->
+<div id="sc-scan" class="hidden">
+  <div class="topbar">
+    <button class="btn-back" onclick="go('welcome')">← Retour</button>
+    <div class="logo"><div class="logo-icon">SM</div>Skin<span>Match</span></div>
+  </div>
+  <div class="content">
+    <div style="margin:16px 0 20px">
+      <div class="step-lbl" id="scan-eyebrow">Analyse IA · Bêta</div>
+      <h2 id="scan-title" style="margin-bottom:6px">Scan de votre peau</h2>
+      <p class="sub" id="scan-sub">Prenez une photo de votre visage ou importez-en une. Notre IA analyse votre peau en quelques secondes.</p>
+    </div>
+
+    <!-- Zone upload photo -->
+    <div id="scan-upload-zone" style="border:2px dashed var(--rose);border-radius:20px;padding:32px 20px;text-align:center;cursor:pointer;background:var(--blush);margin-bottom:16px;transition:all .2s" onclick="document.getElementById('scan-file-input').click()" ondragover="event.preventDefault();this.style.borderColor='#C4726A'" ondrop="handleScanDrop(event)">
+      <div style="font-size:40px;margin-bottom:12px">📸</div>
+      <div id="scan-upload-text" style="font-size:14px;font-weight:600;color:var(--acc2);margin-bottom:4px">Appuyez pour prendre ou importer une photo</div>
+      <div style="font-size:12px;color:var(--mut)">JPG, PNG · Visage bien éclairé, sans maquillage de préférence</div>
+      <input type="file" id="scan-file-input" accept="image/*" capture="user" style="display:none" onchange="handleScanFile(this)">
+    </div>
+
+    <!-- Aperçu photo -->
+    <div id="scan-preview" style="display:none;margin-bottom:16px;position:relative">
+      <img id="scan-img" style="width:100%;border-radius:16px;max-height:280px;object-fit:cover" alt="Photo peau">
+      <button onclick="resetScan()" style="position:absolute;top:10px;right:10px;background:rgba(0,0,0,.5);border:none;border-radius:50%;width:30px;height:30px;color:#fff;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center">×</button>
+    </div>
+
+    <!-- Bouton analyser -->
+    <button id="scan-btn" class="btn-p" disabled onclick="analyzeSkin()" style="margin-bottom:12px" id="scan-btn">
+      <span id="scan-btn-text">Analyser ma peau</span>
+    </button>
+
+    <!-- Résultat analyse -->
+    <div id="scan-result" style="display:none">
+      <!-- Loading -->
+      <div id="scan-loading" style="text-align:center;padding:24px;display:none">
+        <div style="width:44px;height:44px;border:3px solid var(--rose);border-top-color:#C4726A;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 14px"></div>
+        <div style="font-size:13px;color:var(--mut)" id="scan-loading-text">Analyse en cours...</div>
+      </div>
+      <!-- Résultats -->
+      <div id="scan-analysis" style="display:none">
+        <div style="background:var(--blush);border-radius:18px;border:1px solid var(--rose);padding:18px;margin-bottom:14px">
+          <div style="font-size:10px;font-weight:700;color:var(--acc2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Résultat de l'analyse</div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <div id="scan-type-icon" style="font-size:28px"></div>
+            <div>
+              <div id="scan-type-label" style="font-family:var(--serif);font-size:20px;font-weight:700"></div>
+              <div id="scan-confidence" style="font-size:12px;color:var(--acc2);font-weight:600"></div>
+            </div>
+          </div>
+          <div id="scan-description" style="font-size:13px;color:var(--pri);line-height:1.6;margin-bottom:12px"></div>
+          <!-- Problèmes détectés -->
+          <div id="scan-concerns-wrap" style="display:none">
+            <div style="font-size:10px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Problèmes détectés</div>
+            <div id="scan-concerns-list" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+          </div>
+        </div>
+        <!-- Message conseil -->
+        <div id="scan-advice" style="background:#fff;border-radius:14px;border:1px solid var(--bdr);border-left:3px solid var(--acc);padding:14px;margin-bottom:16px;font-size:12px;line-height:1.6;color:var(--pri)"></div>
+        <!-- Actions -->
+        <button class="btn-p" onclick="applyScanResult()" style="margin-bottom:8px">
+          <span id="scan-apply-btn">Utiliser ces résultats pour ma routine</span>
+        </button>
+        <button class="btn-o" onclick="resetScan()" style="font-size:12px">
+          <span id="scan-retry-btn">Reprendre une photo</span>
+        </button>
+      </div>
+    </div>
+
+    <div style="margin-top:16px;padding:12px;background:#fff;border-radius:12px;border:1px solid var(--bdr)">
+      <div style="font-size:11px;color:var(--mut);line-height:1.5;text-align:center">
+        🔒 <strong>Votre photo n'est pas stockée.</strong> Elle est analysée localement et supprimée immédiatement après l'analyse.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ REGISTER ══ -->
+<div id="sc-register" class="hidden">
+  <div class="topbar"><button class="btn-back" onclick="go('welcome')">← Retour</button><div class="logo"><div class="logo-icon">SM</div>Skin<span>Match</span></div><button onclick="go('lang')" style="background:rgba(196,114,106,.12);border:1px solid rgba(196,114,106,.25);border-radius:20px;padding:4px 10px;font-size:11px;font-weight:600;color:#C4726A;cursor:pointer;font-family:'Outfit',sans-serif">🌐 Lang</button></div>
+  <div class="content">
+    <div style="margin:22px 0">
+      <h2>Créer votre compte</h2>
+      <p class="sub">Enregistrez votre profil pour accéder à vos recommandations.</p>
+    </div>
+    <div class="inp-wrap"><svg width="15" height="15" viewBox="0 0 24 24" fill="#9A8B7C"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg><input id="inp-name" type="text" placeholder="Prénom"></div>
+    <div class="inp-wrap"><svg width="15" height="15" viewBox="0 0 24 24" fill="#9A8B7C"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg><input id="inp-email-r" type="email" placeholder="Adresse email"></div>
+    <div class="inp-wrap"><svg width="15" height="15" viewBox="0 0 24 24" fill="#9A8B7C"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><input id="inp-pw-r" type="password" placeholder="Mot de passe (6 min.)"></div>
+    <div id="err-r" class="err-msg hidden"></div>
+    <button class="btn-p" onclick="doRegister()">Continuer</button>
+    <div class="divider"><hr><span>ou</span><hr></div>
+    <button class="btn-o" onclick="go('login')">J'ai déjà un compte</button>
+  </div>
+</div>
+
+<!-- ══ LOGIN ══ -->
+<div id="sc-login" class="hidden">
+  <div class="topbar"><button class="btn-back" onclick="go('welcome')">← Retour</button><div class="logo"><div class="logo-icon">SM</div>Skin<span>Match</span></div><button onclick="go('lang')" style="background:rgba(196,114,106,.12);border:1px solid rgba(196,114,106,.25);border-radius:20px;padding:4px 10px;font-size:11px;font-weight:600;color:#C4726A;cursor:pointer;font-family:'Outfit',sans-serif">🌐 Lang</button></div>
+  <div class="content">
+    <div style="margin:22px 0"><h2>Bon retour</h2><p class="sub">Connectez-vous pour accéder à votre profil.</p></div>
+    <div class="inp-wrap"><svg width="15" height="15" viewBox="0 0 24 24" fill="#9A8B7C"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg><input id="inp-email-l" type="email" placeholder="Adresse email"></div>
+    <div class="inp-wrap"><svg width="15" height="15" viewBox="0 0 24 24" fill="#9A8B7C"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><input id="inp-pw-l" type="password" placeholder="Mot de passe"></div>
+    <div id="err-l" class="err-msg hidden"></div>
+    <button class="btn-p" onclick="doLogin()">Se connecter</button>
+    <div class="divider"><hr><span>ou</span><hr></div>
+    <button class="btn-o" onclick="go('register')">Créer un compte</button>
+  </div>
+</div>
+
+<!-- ══ Q1 : TYPE DE PEAU ══ -->
+<div id="sc-q1" class="hidden">
+  <div class="topbar"><button class="btn-back" onclick="go('welcome')">← Retour</button><div class="logo"><div class="logo-icon">SM</div>Skin<span>Match</span></div><button onclick="go('lang')" style="background:rgba(196,114,106,.12);border:1px solid rgba(196,114,106,.25);border-radius:20px;padding:4px 10px;font-size:11px;font-weight:600;color:#C4726A;cursor:pointer;font-family:'Outfit',sans-serif">🌐 Lang</button></div>
+  <div class="content">
+    <div class="progress"><div class="pd on"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div></div>
+    <div class="step-lbl" id="step-lbl-1">Étape 1 / 5</div>
+    <h2 id="q1-title">Type de peau</h2><p class="sub" id="q1-sub">Choisissez celui qui vous correspond le mieux.</p>
+    <div id="q1-opts"></div>
+    <button class="btn-p" id="q1-next" disabled onclick="go('q2')" style="margin-top:14px">Continuer</button>
+  </div>
+</div>
+
+<!-- ══ DIAGNOSTIC TYPE DE PEAU ══ -->
+<div id="sc-diag" class="hidden">
+  <div class="topbar"><button class="btn-back" onclick="go('q1')">← Retour</button><div class="logo"><div class="logo-icon">SM</div>Skin<span>Match</span></div></div>
+  <div class="content">
+    <div class="progress"><div class="pd on"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div></div>
+    <div class="step-lbl" id="diag-step-lbl">Question 1 / 5</div>
+    <h2 id="diag-question" style="margin-bottom:10px;line-height:1.3"></h2>
+    <p class="sub" id="diag-sub"></p>
+    <div id="diag-opts"></div>
+    <div id="diag-result" class="hidden" style="margin-top:16px;padding:20px;background:var(--blush);border-radius:16px;border:1px solid var(--rose)">
+      <div id="diag-result-eyebrow" style="font-size:11px;font-weight:700;color:var(--acc2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Votre type de peau</div>
+      <div id="diag-result-type" style="font-family:var(--serif);font-size:24px;font-weight:700;margin-bottom:6px"></div>
+      <div id="diag-result-desc" style="font-size:13px;color:var(--mut);line-height:1.6;margin-bottom:16px"></div>
+      <button class="btn-p" onclick="confirmDiagResult()" style="margin-top:0">Confirmer mon type de peau</button>
+      <button onclick="restartDiag()" style="width:100%;padding:10px;border:none;background:none;color:var(--mut);font-size:12px;cursor:pointer;margin-top:8px;font-family:var(--sans);text-decoration:underline">Refaire le diagnostic</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ Q2 : ÂGE ══ -->
+<div id="sc-q2" class="hidden">
+  <div class="topbar"><button class="btn-back" onclick="go('q1')">← Retour</button><div class="logo"><div class="logo-icon">SM</div>Skin<span>Match</span></div></div>
+  <div class="content">
+    <div class="progress"><div class="pd on"></div><div class="pd on"></div><div class="pd"></div><div class="pd"></div><div class="pd"></div></div>
+    <div class="step-lbl" id="step-lbl-2">Étape 2 / 5</div>
+    <h2 id="q2-title">Votre tranche d'âge</h2><p class="sub" id="q2-sub">Les besoins de votre peau évoluent avec l'âge.</p>
+    <div id="q2-opts"></div>
+    <button class="btn-p" id="q2-next" disabled onclick="go('q3')" style="margin-top:10px">Continuer</button>
+  </div>
+</div>
+
+<!-- ══ Q3 : PROBLÈMES + ALLERGIES ══ -->
+<div id="sc-q3" class="hidden">
+  <div class="topbar"><button class="btn-back" onclick="go('q2')">← Retour</button><div class="logo"><div class="logo-icon">SM</div>Skin<span>Match</span></div></div>
+  <div class="content">
+    <div class="progress"><div class="pd on"></div><div class="pd on"></div><div class="pd on"></div><div class="pd"></div><div class="pd"></div></div>
+    <div class="step-lbl" id="step-lbl-3">Étape 3 / 5</div>
+    <h2 id="q3-title">Vos problèmes de peau</h2><p class="sub" id="q3-sub">Sélectionnez tout ce qui vous concerne.</p>
+    <div id="q3-concerns" class="chips"></div>
+    <div class="step-lbl" style="margin-bottom:10px">Allergies / Ingrédients à éviter</div>
+    <div id="q3-allergies" class="chips"></div>
+    <button class="btn-p" id="q3-next" disabled onclick="go('q4')">Continuer</button>
+  </div>
+</div>
+
+<!-- ══ Q4 : BUDGET ══ -->
+<div id="sc-q4" class="hidden">
+  <div class="topbar"><button class="btn-back" onclick="go('q3')">← Retour</button><div class="logo"><div class="logo-icon">SM</div>Skin<span>Match</span></div></div>
+  <div class="content">
+    <div class="progress"><div class="pd on"></div><div class="pd on"></div><div class="pd on"></div><div class="pd on"></div><div class="pd"></div></div>
+    <div class="step-lbl" id="step-lbl-4">Étape 4 / 5</div>
+    <h2 id="q4-title">Votre budget</h2><p class="sub" id="q4-sub">Par produit, en moyenne.</p>
+    <div id="q4-opts"></div>
+    <button class="btn-p" id="q4-next" disabled onclick="go('q5')" style="margin-top:10px">Continuer</button>
+  </div>
+</div>
+
+<!-- ══ Q5 : ROUTINE ══ -->
+<div id="sc-q5" class="hidden">
+  <div class="topbar"><button class="btn-back" onclick="go('q4')">← Retour</button><div class="logo"><div class="logo-icon">SM</div>Skin<span>Match</span></div></div>
+  <div class="content">
+    <div class="progress"><div class="pd on"></div><div class="pd on"></div><div class="pd on"></div><div class="pd on"></div><div class="pd on"></div></div>
+    <div class="step-lbl" id="step-lbl-5">Étape 5 / 5</div>
+    <h2 id="q5-title">Type de routine</h2><p class="sub" id="q5-sub">Selon le temps que vous souhaitez y consacrer.</p>
+    <div id="q5-opts"></div>
+    <button class="btn-p" id="q5-next" disabled onclick="doGenerate()" style="margin-top:10px">Générer ma routine</button>
+  </div>
+</div>
+
+<!-- ══ RESULT ══ -->
+<div id="sc-result" class="hidden">
+  <div class="topbar"><div class="logo"><div class="logo-icon">SM</div>Skin<span>Match</span></div><button onclick="openCompare()" id="btn-compare-top" style="background:#C4726A;border:none;border-radius:20px;padding:6px 12px;font-size:11px;font-weight:700;color:#fff;cursor:pointer;font-family:var(--sans)">⚖️ Comparer</button></div>
+  <div style="position:fixed;bottom:28px;left:20px;z-index:900">
+    <button class="btn-back" onclick="go('q5')" id="back-result">← Retour</button>
+  </div>
+  <div class="content" id="result-content"></div>
+</div>
+
+<!-- ══ MODAL ══ -->
+<div id="modal-overlay" class="modal-overlay hidden" onclick="closeModal()">
+  <div class="modal" onclick="event.stopPropagation()" id="modal-content"></div>
+</div>
+
+<!-- ══ COMPARE ══ -->
+<div id="sc-compare" class="hidden">
+  <div class="topbar">
+    <button class="btn-back" onclick="go('result')">← Retour</button>
+    <div class="logo"><div class="logo-icon">SM</div>Skin<span>Match</span></div>
+  </div>
+  <div class="content">
+    <div style="margin:8px 0 12px">
+      <div class="step-lbl">Mode comparaison</div>
+      <h2 style="margin-bottom:4px">Comparer 2 produits</h2>
+      <p class="sub" id="compare-sub">Touchez 2 produits pour les comparer.</p>
+    </div>
+    <!-- Barre de recherche -->
+    <div style="position:relative;margin-bottom:12px">
+      <input id="compare-search" placeholder="🔍 Rechercher un produit..." oninput="filterCompareCards()" style="width:100%;padding:11px 16px;border:1.5px solid var(--bdr);border-radius:50px;font-size:13px;font-family:var(--sans);outline:none;box-sizing:border-box;background:var(--surf)">
+    </div>
+    <!-- Grille de cartes -->
+    <div id="compare-cards" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px"></div>
+    <!-- Résultat -->
+    <div id="compare-result"></div>
+  </div>
+</div>
+
+<!-- ══ SUIVI DANS LE TEMPS ══ -->
+<div id="sc-suivi" class="hidden">
+  <div class="topbar">
+    <button class="btn-back" onclick="go('result')">← Retour</button>
+    <div class="logo"><div class="logo-icon">SM</div>Skin<span>Match</span></div>
+  </div>
+  <div class="content">
+    <div style="margin:16px 0 20px">
+      <div class="step-lbl">Suivi · 4 semaines</div>
+      <h2 style="margin-bottom:4px">Votre progression</h2>
+      <p class="sub">Notez votre peau chaque semaine pour suivre l'evolution de votre routine.</p>
+    </div>
+    <div id="suivi-content"></div>
+  </div>
+</div>
+
+<!-- ══ DASHBOARD ══ -->
+<div id="sc-dashboard" class="hidden">
+  <div class="topbar">
+    <button class="btn-back" onclick="go('result')">← Retour</button>
+    <div class="logo"><div class="logo-icon">SM</div>Skin<span>Match</span></div>
+  </div>
+  <div class="content">
+    <div style="margin:8px 0 20px">
+      <div class="step-lbl">Mon espace</div>
+      <h2 style="margin-bottom:4px" id="dash-title">Bonjour 👋</h2>
+      <p class="sub" id="dash-sub">Votre tableau de bord skincare personnalisé</p>
+    </div>
+    <div id="dashboard-content"></div>
+  </div>
+</div>
+
+</div><!-- /app -->
+
+<!-- Config environnement -->
+<script>
+  window.SKINMATCH_SUPABASE_URL      = 'https://uyiqicvlmeshjucyivqo.supabase.co';
+  window.SKINMATCH_SUPABASE_ANON_KEY = 'sb_publishable_RVdc4NRk4OjlRd6e4Acc9g_pIfiG-Y7';
+  window.DEBUG = window.location.hostname === 'localhost';
+</script>
+
+<!-- Supabase SDK (chargé avant auth.js et db.js) -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
+
+<!-- Scripts principaux (ordre important) -->
+<script src="/src/js/data-legacy.js"></script>
+<script src="/src/js/i18n.js"></script>
+<script src="/src/js/algorithm.js"></script>
+<script src="/src/js/auth.js" defer></script>
+<script src="/src/js/db.js" defer></script>
+<script src="/src/js/scan.js" defer></script>
+<script src="/src/js/ui.js"></script>
+
+<!-- Service Worker (PWA) -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/public/sw.js', { scope: '/' })
+      .then(function (reg) {
+        console.log('[SW] Enregistré:', reg.scope);
+        // Notifier l'utilisateur si une mise à jour est disponible
+        reg.addEventListener('updatefound', function () {
+          const newWorker = reg.installing;
+          newWorker.addEventListener('statechange', function () {
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              console.log('[SW] Mise à jour disponible');
+            }
+          });
+        });
+      })
+      .catch(function (err) {
+        console.warn('[SW] Enregistrement échoué:', err);
+      });
+  });
+}
+</script>
+<!-- Modale Pourquoi ce produit -->
+<div id="why-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.55);z-index:9999;align-items:flex-end;justify-content:center">
+  <div style="background:#fff;border-radius:24px 24px 0 0;padding:24px 20px 36px;width:100%;max-width:460px;max-height:75vh;overflow-y:auto;box-shadow:0 -8px 40px rgba(0,0,0,.15)">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px">
+      <div>
+        <div style="font-size:10px;font-weight:700;color:#C4726A;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">🤖 Analyse IA</div>
+        <div id="why-product-name" style="font-family:Georgia,serif;font-size:18px;font-weight:700;color:#3D2B1F;line-height:1.3"></div>
+      </div>
+      <button onclick="closeWhyModal()" style="background:#F5EDE8;border:none;border-radius:50%;width:34px;height:34px;cursor:pointer;font-size:20px;color:#C4726A;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-left:12px">×</button>
+    </div>
+    <div id="why-loading" style="text-align:center;padding:32px;display:none">
+      <div style="width:40px;height:40px;border:3px solid #F2C4BC;border-top-color:#C4726A;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 14px"></div>
+      <div style="font-size:13px;color:#B0958F">Analyse en cours...</div>
+    </div>
+    <div id="why-content" style="font-size:14px;line-height:1.75;color:#3D2B1F"></div>
+    <button onclick="closeWhyModal()" style="width:100%;margin-top:20px;padding:13px;border-radius:50px;border:none;background:#C4726A;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif">Fermer</button>
+  </div>
+</div>
+
+<!-- MODALE RÉGION -->
+<div id="region-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:9999;align-items:flex-end;justify-content:center">
+  <div style="background:#FDF8F5;border-radius:24px 24px 0 0;padding:28px 24px 40px;width:100%;max-width:460px;max-height:85vh;overflow-y:auto">
+    <div style="text-align:center;margin-bottom:20px">
+      <div style="font-size:10px;font-weight:700;color:#C4726A;text-transform:uppercase;letter-spacing:3px;margin-bottom:8px">🌍 Région</div>
+      <h2 style="font-family:Georgia,serif;font-size:22px;font-weight:700;color:#3D2B1F;margin-bottom:4px">Où êtes-vous ?</h2>
+      <p style="font-size:13px;color:#8B6F5E">Les produits sont adaptés à votre pays.</p>
+    </div>
+    <!-- Liste custom mobile-friendly -->
+    <div id="region-list" style="display:flex;flex-direction:column;gap:8px;margin-bottom:16px"></div>
+    <button onclick="confirmRegion()" style="width:100%;padding:14px;border-radius:50px;border:none;background:#C4726A;color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif">Confirmer</button>
+  </div>
+</div>
+
+<!-- MODALE VIDÉO -->
+<div id="video-modal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.85);z-index:9999;align-items:center;justify-content:center;flex-direction:column">
+  <div style="width:100%;max-width:460px;padding:0 16px">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+      <div id="video-title" style="font-size:14px;font-weight:700;color:#fff;font-family:Georgia,serif"></div>
+      <button onclick="closeVideo()" style="background:rgba(255,255,255,.2);border:none;border-radius:50%;width:34px;height:34px;color:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center">×</button>
+    </div>
+    <div style="position:relative;width:100%;padding-bottom:56.25%;border-radius:14px;overflow:hidden;background:#000">
+      <iframe id="video-iframe" src="" frameborder="0" allowfullscreen allow="autoplay; encrypted-media" style="position:absolute;top:0;left:0;width:100%;height:100%;border:none"></iframe>
+    </div>
+    <p style="color:rgba(255,255,255,.5);font-size:11px;text-align:center;margin-top:10px">Source : YouTube</p>
+  </div>
+</div>
+
+</body>
+</html>

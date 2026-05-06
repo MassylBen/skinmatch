@@ -1,0 +1,113 @@
+{
+  "net": {
+    "seche": {
+      "low": "av-lait",
+      "mid": "uri-eau-thermale",
+      "high": "cs-mousse"
+    },
+    "grasse": {
+      "low": "cv-gel",
+      "mid": "vic-normaderm",
+      "high": "lrp-effgel"
+    },
+    "mixte": {
+      "low": "svr-sebiaclear",
+      "mid": "bd-sebgel",
+      "high": "lrp-effgel"
+    },
+    "sensible": {
+      "low": "bd-sens",
+      "mid": "ader-dermalibour",
+      "high": "cs-mousse"
+    },
+    "normale": {
+      "low": "cv-mou",
+      "mid": "bd-sens",
+      "high": "cs-mousse"
+    }
+  },
+  "hyd": {
+    "seche": {
+      "low": "euc-urearepair",
+      "mid": "ader-epitheliale",
+      "high": "skc-age"
+    },
+    "grasse": {
+      "low": "lrp-effduo",
+      "mid": "svr-hydra",
+      "high": "cs-crev"
+    },
+    "mixte": {
+      "low": "cv-crem",
+      "mid": "lie-hydragenist",
+      "high": "skc-met"
+    },
+    "sensible": {
+      "low": "lrp-cica",
+      "mid": "uri-roseliane",
+      "high": "skc-phy"
+    },
+    "normale": {
+      "low": "cv-crem",
+      "mid": "nux-creme-fraiche",
+      "high": "skc-met"
+    }
+  },
+  "ser": {
+    "acne": {
+      "low": "ng-bha",
+      "mid": "lrp-effduo",
+      "high": "cs-skin2"
+    },
+    "taches": {
+      "low": "cv-vitc",
+      "mid": "cau-vinoperfect",
+      "high": "skc-dis"
+    },
+    "rides": {
+      "low": "cv-ret",
+      "mid": "vic-liftactiv",
+      "high": "lan-renergie"
+    },
+    "eclat": {
+      "low": "pay-serum-eclat",
+      "mid": "cs-culte",
+      "high": "skc-cef"
+    },
+    "deshydratation": {
+      "low": "lrp-hyalu",
+      "mid": "vic-minral89",
+      "high": "skc-ha"
+    },
+    "rougeurs": {
+      "low": "lrp-cica",
+      "mid": "uri-roseliane",
+      "high": "skc-phy"
+    },
+    "pores": {
+      "low": "lie-sebologie",
+      "mid": "bd-sebser",
+      "high": "skc-bl"
+    },
+    "imperfections": {
+      "low": "gar-potion-magique",
+      "mid": "bd-sebser",
+      "high": "skc-sil"
+    },
+    "sensibilite": {
+      "low": "lrp-cica",
+      "mid": "av-tol",
+      "high": "cs-bleu"
+    },
+    "cernes": {
+      "low": "cv-eye",
+      "mid": "tal-eye-therapy",
+      "high": "cs-eye"
+    }
+  },
+  "spf": {
+    "low": "ng-spf",
+    "mid": "lrp-anth",
+    "high": "cla-spf"
+  }
+}
