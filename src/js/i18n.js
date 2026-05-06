@@ -31,7 +31,7 @@ const I18n = (function () {
    */
   async function init(lang) {
     try {
-      const response = await fetch('/src/data/translations.json');
+      const response = await fetch('/data/translations.json');
       if (!response.ok) throw new Error('translations.json introuvable');
       _translations = await response.json();
       _loaded = true;

@@ -25,7 +25,7 @@ const SkinScan = (function () {
 
   // ── Constantes ───────────────────────────────────────────────────────────────
 
-  const MODEL_PATH  = '/src/js/models/skin-classifier/model.json';
+  const MODEL_PATH  = '/js/models/skin-classifier/model.json';
   const CANVAS_SIZE = 224; // Input size MobileNet standard
 
   // Zones d'analyse du visage (coordonnées relatives 0-1)
