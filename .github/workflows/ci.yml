@@ -43,14 +43,7 @@ jobs:
       - run: npm ci
 
       - name: Tests unitaires
-        run: npm run test:unit -- --coverage --reporter=verbose
-
-      - name: Upload coverage
-        uses: codecov/codecov-action@v4
-        if: always()
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: false
+        run: npm run test:unit -- --reporter=verbose
 
   # ── 3. Tests E2E ────────────────────────────────────────────────────────────
   test-e2e:
