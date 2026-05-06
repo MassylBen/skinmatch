@@ -2,7 +2,6 @@
   "version": 2,
   "name": "skinmatch",
   "buildCommand": null,
-  "outputDirectory": "src",
   "routes": [
     {
       "src": "/sw.js",
@@ -25,8 +24,8 @@
       "dest": "/public/screenshots/$1"
     },
     {
-      "src": "/(.*)",
-      "dest": "/src/$1"
+      "src": "/",
+      "dest": "/src/index.html"
     }
   ],
   "headers": [
