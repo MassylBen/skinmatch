@@ -82,7 +82,7 @@
     }
   ],
   "env": {
-    "SKINMATCH_SUPABASE_URL":      "@skinmatch-supabase-url",
-    "SKINMATCH_SUPABASE_ANON_KEY": "@skinmatch-supabase-anon-key"
+    "SKINMATCH_SUPABASE_URL":      "https://uyiqicvlmeshjucyivqo.supabase.co",
+    "SKINMATCH_SUPABASE_ANON_KEY": "sb_publishable_RVdc4NRk4OjlRd6e4Acc9g_pIfiG-Y7"
   }
 }
