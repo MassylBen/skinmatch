@@ -131,3 +131,10 @@ projects: chromium (iPhone 14) + webkit (iPhone SE)
 - Ne jamais modifier les fichiers hors périmètre (src/, scripts/, agents/)
 - Ne jamais mocker l'algorithme principal dans les tests d'intégration
 - Ne jamais désactiver la couverture pour atteindre un seuil artificiellement
+
+## MCP Servers assignés
+
+| Serveur | Usage dans ce périmètre |
+|---------|------------------------|
+| `filesystem` | Lire/écrire `tests/unit/`, `tests/e2e/`, `vitest.config.js`, `playwright.config.js` |
+| `playwright` | Exécuter les tests E2E, faire des screenshots de régression, tester les flows complets sur mobile (375px, 390px) |

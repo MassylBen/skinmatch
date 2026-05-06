@@ -141,3 +141,11 @@ supabase db reset   # repart de zéro (DESTRUCTIF — dev uniquement)
 - **Jamais** bypasser le RLS (pas de client avec service_role côté navigateur)
 - **Jamais** modifier `src/js/ui.js` ou `src/js/i18n.js` (hors périmètre)
 - **Jamais** logger des données personnelles (email, allergies) en clair côté client
+
+## MCP Servers assignés
+
+| Serveur | Usage dans ce périmètre |
+|---------|------------------------|
+| `filesystem` | Lire/écrire `supabase/migrations/`, `auth.js`, `db.js` |
+| `supabase` | Inspecter le schéma DB, exécuter des requêtes de vérification RLS, contrôler l'état des tables en production |
+| `sequential-thinking` | Raisonner sur les migrations SQL complexes, les implications RLS, les cascades avant d'écrire du SQL |

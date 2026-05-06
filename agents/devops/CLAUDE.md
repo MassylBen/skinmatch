@@ -225,3 +225,10 @@ git log --oneline -20
 - Jamais déployer si les tests échouent
 - Jamais committer les fichiers `.env`
 - Jamais utiliser `--force` sur `main`
+
+## MCP Servers assignés
+
+| Serveur | Usage dans ce périmètre |
+|---------|------------------------|
+| `filesystem` | Lire/écrire `.github/workflows/`, `vercel.json`, `package.json`, `scripts/` |
+| `github` | Inspecter les runs CI, lire les logs d'échec, gérer les secrets, déclencher des workflows manuellement |

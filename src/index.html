@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light only">
 <meta name="supported-color-schemes" content="light">
 <meta name="theme-color" content="#C4726A">
@@ -12,11 +12,11 @@
 <meta property="og:title"       content="SkinMatch — Your Skin, Your Routine">
 <meta property="og:description" content="Diagnostic de peau personnalisé et routine sur mesure en 60 secondes.">
 <meta property="og:type"        content="website">
-<meta property="og:image"       content="/public/icons/icon-512.png">
+<meta property="og:image"       content="/icons/icon-512.png">
 
 <!-- PWA -->
-<link rel="manifest" href="/public/manifest.json">
-<link rel="apple-touch-icon" href="/public/icons/icon-192.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="SkinMatch">
@@ -29,7 +29,8 @@
 <!-- Fonts — preconnect pour la performance -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap"></noscript>
 
 <!-- CSS principal -->
 <link rel="stylesheet" href="/css/styles.css">
@@ -56,7 +57,7 @@
         <div style="width:44px;height:44px;border-radius:10px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:28px">🇫🇷</div>
         <div style="text-align:left">
           <div style="font-size:16px;font-weight:700;color:#3D2B1F;font-family:Georgia,serif">Français</div>
-          <div style="font-size:12px;color:#9A8A85;margin-top:2px">France · Belgique · Suisse</div>
+          <div style="font-size:12px;color:#6B5A55;margin-top:2px">France · Belgique · Suisse</div>
         </div>
         <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" viewBox="0 0 24 24" fill="#C4726A"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
       </button>
@@ -64,7 +65,7 @@
         <div style="width:44px;height:44px;border-radius:10px;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:28px">🇬🇧</div>
         <div style="text-align:left">
           <div style="font-size:16px;font-weight:700;color:#3D2B1F;font-family:Georgia,serif">English</div>
-          <div style="font-size:12px;color:#9A8A85;margin-top:2px">UK · US · International</div>
+          <div style="font-size:12px;color:#6B5A55;margin-top:2px">UK · US · International</div>
         </div>
         <svg style="margin-left:auto;flex-shrink:0" width="18" height="18" viewBox="0 0 24 24" fill="#C4726A"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
       </button>
@@ -420,19 +421,19 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
 
 <!-- Scripts principaux (ordre important) -->
-<script src="/js/data-legacy.js"></script>
-<script src="/js/i18n.js"></script>
-<script src="/js/algorithm.js"></script>
+<script src="/js/data-legacy.js" defer></script>
+<script src="/js/i18n.js" defer></script>
+<script src="/js/algorithm.js" defer></script>
 <script src="/js/auth.js" defer></script>
 <script src="/js/db.js" defer></script>
 <script src="/js/scan.js" defer></script>
-<script src="/js/ui.js"></script>
+<script src="/js/ui.js" defer></script>
 
 <!-- Service Worker (PWA) -->
 <script>
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', function () {
-    navigator.serviceWorker.register('/public/sw.js', { scope: '/' })
+    navigator.serviceWorker.register('/sw.js', { scope: '/' })
       .then(function (reg) {
         console.log('[SW] Enregistré:', reg.scope);
         // Notifier l'utilisateur si une mise à jour est disponible

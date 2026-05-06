@@ -13,34 +13,34 @@
 
 'use strict';
 
-const CACHE_VERSION  = 'v1';
+const CACHE_VERSION  = 'v3';
 const CACHE_STATIC   = `skinmatch-static-${CACHE_VERSION}`;
 const CACHE_IMAGES   = `skinmatch-images-${CACHE_VERSION}`;
 const CACHE_DATA     = `skinmatch-data-${CACHE_VERSION}`;
 const CACHE_MODEL    = `skinmatch-model-${CACHE_VERSION}`;
 
 // Assets à précacher lors de l'installation
+// Chemins correspondant aux routes Vercel (outputDirectory: ".")
 const PRECACHE_ASSETS = [
   '/',
-  '/src/index.html',
-  '/src/css/styles.css',
-  '/src/js/algorithm.js',
-  '/src/js/ui.js',
-  '/src/js/i18n.js',
-  '/src/js/data-legacy.js',
-  '/src/data/products.json',
-  '/src/data/translations.json',
-  '/src/data/routes.json',
-  '/public/manifest.json',
-  '/public/offline.html',
+  '/css/styles.css',
+  '/js/algorithm.js',
+  '/js/ui.js',
+  '/js/i18n.js',
+  '/js/data-legacy.js',
+  '/data/products.json',
+  '/data/translations.json',
+  '/data/routes.json',
+  '/manifest.json',
+  '/offline.html',
 ];
 
 // Patterns pour identifier les types de requêtes
 const PATTERNS = {
   static:  /\.(css|js|html|woff2?)$/,
   image:   /\.(jpg|jpeg|png|webp|avif|gif|svg)$/,
-  data:    /\/src\/data\/.*\.json$/,
-  model:   /\/src\/js\/models\//,
+  data:    /\/data\/.*\.json$/,
+  model:   /\/js\/models\//,
   supabase:/supabase\.co/,
 };
 
@@ -103,7 +103,7 @@ async function cacheFirst(request, cacheName = CACHE_STATIC) {
     }
     return response;
   } catch {
-    return caches.match('/public/offline.html');
+    return caches.match('/offline.html');
   }
 }
 
@@ -188,7 +188,7 @@ self.addEventListener('fetch', event => {
   if (request.mode === 'navigate') {
     event.respondWith(
       cacheFirst(request, CACHE_STATIC)
-        .catch(() => caches.match('/public/offline.html'))
+        .catch(() => caches.match('/offline.html'))
     );
     return;
   }

@@ -117,3 +117,11 @@ tfjs.converters.save_keras_model(model, '/src/js/models/skin-classifier/')
 - Aucun localStorage de pixels ou résultats d'analyse
 - Jamais bloquer le thread principal — toujours async/await
 - Ne jamais modifier src/js/ui.js, src/js/auth.js, src/js/db.js (hors périmètre)
+
+## MCP Servers assignés
+
+| Serveur | Usage dans ce périmètre |
+|---------|------------------------|
+| `filesystem` | Lire/écrire `scan.js` et `src/js/models/` |
+| `fetch` | Consulter la doc TF.js, télécharger des specs de modèles MobileNetV2, chercher des datasets Kaggle |
+| `sequential-thinking` | Raisonner sur l'architecture ML (choix quantisation, pipeline d'inférence, seuils de confiance) |

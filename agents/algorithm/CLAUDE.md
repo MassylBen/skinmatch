@@ -117,3 +117,10 @@ AHA + BHA (même moment)       → sur-exfoliation
 - Ne jamais modifier `src/js/ui.js` (périmètre Agent Frontend)
 - Ne jamais hardcoder de nom de produit — utiliser uniquement les IDs slugs
 - Ne pas changer les noms des 4 exports publics (`generateRoutine`, `scoreProduct`, `hasConflict`, `isAllergic`)
+
+## MCP Servers assignés
+
+| Serveur | Usage dans ce périmètre |
+|---------|------------------------|
+| `filesystem` | Lire/écrire `algorithm.js`, `routes.json`, `algorithm.test.js` |
+| `sequential-thinking` | Décomposer les cas limites du scoring (conflits ingrédients, edge cases multi-concerns, scoring multidimensionnel) |

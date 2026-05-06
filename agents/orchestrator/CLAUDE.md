@@ -94,9 +94,12 @@ Si un agent est bloqué par un autre → noter dans "Notes bloquantes" de TASKS.
 - **Vitest + Playwright** → stack test standard, compatible vanilla
 - **Python3** pour les scripts → Node.js non disponible sur la machine de dev locale
 
-## Configuration MCP servers — PRÉREQUIS
-Tous les MCP servers nécessitent Node.js. Voir `.claude/settings.json` pour les instructions.
-Clés à renseigner :
-- `BRAVE_API_KEY` → https://api.search.brave.com/
-- `GITHUB_PERSONAL_ACCESS_TOKEN` → GitHub > Settings > Developer settings
-- Supabase service_role key → Supabase Dashboard > Settings > API
+## MCP Servers assignés
+
+| Serveur | Usage dans ce périmètre |
+|---------|------------------------|
+| `filesystem` | Lire `TASKS.md` et tous les `agents/*/CLAUDE.md` |
+| `memory` | Maintenir un graphe de connaissances persistant du projet (état des sprints, décisions architecturales, blocages inter-agents) |
+| `sequential-thinking` | Planifier les dépendances entre agents, séquencer les tâches sans conflits de fichiers |
+| `github` | Superviser l'état du CI/CD, inspecter les PRs, vérifier les runs GitHub Actions |
+| `supabase` | Vérifier l'état de la base de données de production (schéma, données, migrations appliquées) |

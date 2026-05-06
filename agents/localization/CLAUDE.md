@@ -92,3 +92,10 @@ Le hook PostToolUse dans `.claude/settings.json` lance ce script automatiquement
 - Ne jamais supprimer une clé existante (ça casse toutes les langues)
 - Ne jamais restructurer le JSON (les clés sont référencées par nom exact dans i18n.js et ui.js)
 - Ne jamais modifier `src/js/ui.js` ni `src/css/styles.css` (hors périmètre)
+
+## MCP Servers assignés
+
+| Serveur | Usage dans ce périmètre |
+|---------|------------------------|
+| `filesystem` | Lire/écrire `translations.json` et `i18n.js` |
+| `fetch` | Vérifier les termes skincare dans d'autres langues (dictionnaires INCI, terminologie beauté locale), consulter des refs linguistiques |

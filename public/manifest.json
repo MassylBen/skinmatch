@@ -14,45 +14,45 @@
   "categories": ["health", "lifestyle", "beauty"],
   "icons": [
     {
-      "src": "/public/icons/icon-72.png",
+      "src": "/icons/icon-72.png",
       "sizes": "72x72",
       "type": "image/png"
     },
     {
-      "src": "/public/icons/icon-96.png",
+      "src": "/icons/icon-96.png",
       "sizes": "96x96",
       "type": "image/png"
     },
     {
-      "src": "/public/icons/icon-128.png",
+      "src": "/icons/icon-128.png",
       "sizes": "128x128",
       "type": "image/png"
     },
     {
-      "src": "/public/icons/icon-144.png",
+      "src": "/icons/icon-144.png",
       "sizes": "144x144",
       "type": "image/png"
     },
     {
-      "src": "/public/icons/icon-192.png",
+      "src": "/icons/icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/public/icons/icon-192-maskable.png",
+      "src": "/icons/icon-192-maskable.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/public/icons/icon-512.png",
+      "src": "/icons/icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/public/icons/icon-512-maskable.png",
+      "src": "/icons/icon-512-maskable.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
@@ -64,26 +64,26 @@
       "short_name": "Diagnostic",
       "description": "Démarrer un nouveau diagnostic de peau",
       "url": "/?action=start",
-      "icons": [{ "src": "/public/icons/icon-96.png", "sizes": "96x96" }]
+      "icons": [{ "src": "/icons/icon-96.png", "sizes": "96x96" }]
     },
     {
       "name": "Ma routine",
       "short_name": "Routine",
       "description": "Accéder à ma dernière routine",
       "url": "/?action=routine",
-      "icons": [{ "src": "/public/icons/icon-96.png", "sizes": "96x96" }]
+      "icons": [{ "src": "/icons/icon-96.png", "sizes": "96x96" }]
     }
   ],
   "screenshots": [
     {
-      "src": "/public/screenshots/welcome.png",
+      "src": "/screenshots/welcome.png",
       "sizes": "390x844",
       "type": "image/png",
       "form_factor": "narrow",
       "label": "Écran d'accueil SkinMatch"
     },
     {
-      "src": "/public/screenshots/results.png",
+      "src": "/screenshots/results.png",
       "sizes": "390x844",
       "type": "image/png",
       "form_factor": "narrow",

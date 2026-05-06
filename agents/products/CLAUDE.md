@@ -124,3 +124,12 @@ Vérifications effectuées :
 - Ne jamais ajouter de logique JS dans products.json (c'est de la data pure)
 - Ne jamais mettre de `prix_num` négatif ou nul pour un produit actif
 - Ne jamais changer la structure de l'objet (clé = ID slug) en tableau
+
+## MCP Servers assignés
+
+| Serveur | Usage dans ce périmètre |
+|---------|------------------------|
+| `filesystem` | Lire/écrire `products.json` |
+| `fetch` | Récupérer prix/INCI/descriptions sur easypara.fr, sephora.fr, boots.com, lookfantastic.com |
+| `playwright` | Scraper les sites e-commerce JS-heavy (Sephora, Dermstore) qui bloquent le fetch simple |
+| `supabase` | Vérifier la cohérence avec les routines actives avant de deprecater un produit |

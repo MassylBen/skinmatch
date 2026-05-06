@@ -138,3 +138,10 @@ const ST = {
 - Pas de `z-index > 1000` (sauf modales existantes)
 - Pas de `setTimeout` pour masquer des éléments UI (utiliser CSS transitions)
 - Ne jamais modifier les fichiers hors périmètre (`algorithm.js`, `auth.js`, `db.js`, `scan.js`, `i18n.js`)
+
+## MCP Servers assignés
+
+| Serveur | Usage dans ce périmètre |
+|---------|------------------------|
+| `filesystem` | Lire/écrire `index.html`, `styles.css`, `ui.js`, `public/` |
+| `playwright` | Vérifier visuellement les changements UI à 375px et 390px, tester les interactions (modales, navigation, animations) |

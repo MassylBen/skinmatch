@@ -222,3 +222,11 @@ npx lighthouse http://localhost:3000 \
   --screenEmulation.height=844 \
   --chrome-flags="--headless"
 ```
+
+## MCP Servers assignés
+
+| Serveur | Usage dans ce périmètre |
+|---------|------------------------|
+| `filesystem` | Lire/écrire `public/sw.js`, `public/manifest.json`, `vercel.json`, `public/icons/` |
+| `lighthouse` | Lancer des audits Lighthouse directement sur https://skinmatch2.vercel.app sans passer par le CLI |
+| `playwright` | Capturer des screenshots à différents viewports, mesurer les CLS/LCP visuellement, vérifier le rendu PWA |
