@@ -26,6 +26,10 @@
     {
       "src": "/",
       "dest": "/src/index.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
     }
   ],
   "headers": [
