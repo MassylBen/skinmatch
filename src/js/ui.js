@@ -2347,6 +2347,16 @@ function doLogout() {
   };
 })();
 
+// ─── Drapeau langue dans les topbars ──────────────────────────────────────────
+const LANG_FLAGS = { fr: '🇫🇷', en: '🇬🇧', es: '🇪🇸', de: '🇩🇪', ar: '🇸🇦' };
+
+document.addEventListener('skinmatch:langchange', function(e) {
+  const flag = LANG_FLAGS[e.detail?.lang] || '🌐';
+  document.querySelectorAll('.btn-lang-flag').forEach(function(btn) {
+    btn.textContent = flag;
+  });
+});
+
 // ─── Init ─────────────────────────────────────────────────────────────────────
 go('lang');
 initQuestions();
