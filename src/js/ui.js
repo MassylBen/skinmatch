@@ -985,7 +985,12 @@ function doGenerate(){
 
 function renderResult(){
   const r=ST.result;
-  const hasA=ST.allergies.length>0&&!ST.allergies.includes("Aucune allergie connue");
+  // Filet de sécurité allergènes : retirer tout produit allergène qui aurait échappé au filtre principal
+  const activeAllergies=(ST.allergies||[]).filter(a=>a!=="Aucune allergie connue"&&a!=="No known allergies");
+  if(activeAllergies.length>0&&typeof SkinMatchAlgo!=="undefined"){
+    r.steps=r.steps.filter(s=>!SkinMatchAlgo.isAllergic(s,activeAllergies));
+  }
+  const hasA=activeAllergies.length>0;
   const amSteps=r.steps.filter(s=>s.moment==="AM"||s.moment==="AM+PM");
   const pmSteps=r.steps.filter(s=>s.moment==="PM"||s.moment==="AM+PM");
 

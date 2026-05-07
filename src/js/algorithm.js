@@ -40,7 +40,7 @@ const PM_ONLY_INGREDIENTS = ['retinol', 'retinaldehyde', 'encapsulated retinol']
 // Mapping allergies utilisateur → mots-clés INCI à bloquer
 const ALLERGY_INCI_MAP = {
   'Parfums / Fragrances':  ['parfum', 'fragrance', 'linalool', 'limonene', 'citronellol'],
-  'Fragrances / Perfumes': ['parfum', 'fragrance', 'linalool', 'limonene'],
+  'Fragrances / Perfumes': ['parfum', 'fragrance', 'linalool', 'limonene', 'citronellol'],
   'Parabènes':             ['methylparaben', 'propylparaben', 'ethylparaben', 'butylparaben'],
   'Parabens':              ['methylparaben', 'propylparaben', 'ethylparaben'],
   'Alcool':                ['alcohol denat', 'ethanol', 'sd alcohol'],
