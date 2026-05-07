@@ -39,6 +39,7 @@ h2{font-family:var(--serif);font-size:20px;font-weight:700;margin-bottom:3px}
 /* BUTTONS */
 .btn-p{width:100%;padding:14px;border-radius:50px;border:none;background:linear-gradient(135deg,#D4A5A0,#C4887F);color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--sans);margin-top:4px;letter-spacing:.3px;box-shadow:0 4px 15px rgba(212,165,160,.4)}
 .btn-p:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.cta-sticky{position:sticky;bottom:16px;z-index:20;margin-top:16px;filter:drop-shadow(0 -20px 20px #FBF7F4)}
 .btn-o{width:100%;padding:13px;border-radius:50px;border:1.5px solid var(--acc);background:transparent;color:var(--acc2);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--sans);display:flex;align-items:center;justify-content:center;gap:7px}
 .btn-ghost{background:none;border:none;cursor:pointer;color:var(--mut);font-size:12px;text-decoration:underline;font-family:var(--sans);display:block;margin:0 auto}
 .divider{display:flex;align-items:center;gap:10px;margin:14px 0}
