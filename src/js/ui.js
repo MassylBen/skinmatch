@@ -197,6 +197,12 @@ const ST={
   result:null,showShare:false,
 };
 
+let PRODUCTS_CATALOG = null;
+fetch('/data/products.json')
+  .then(function(r){ return r.json(); })
+  .then(function(data){ PRODUCTS_CATALOG = data; })
+  .catch(function(){});
+
 function go(screen){
   SCREENS.forEach(s=>{const el=document.getElementById("sc-"+s);if(el)el.classList.toggle("hidden",s!==screen);});
   ST.screen=screen;
@@ -959,7 +965,7 @@ function yukaBadge(yuka,yl){
 // ─── GENERATE RESULT ──────────────────────────────────────────────────────────
 function doGenerate(){
   // Utiliser le nouveau moteur de scoring si disponible, sinon fallback legacy
-  if (typeof SkinMatchAlgo !== 'undefined' && typeof DB !== 'undefined') {
+  if (typeof SkinMatchAlgo !== 'undefined' && PRODUCTS_CATALOG !== null) {
     const profile = {
       skinType:  ST.skinType  || 'normale',
       ageGroup:  ST.ageGroup  || '26-35',
@@ -968,9 +974,8 @@ function doGenerate(){
       budget:    ST.budget    || 'mid',
       routine:   ST.routine   || 'simple',
     };
-    ST.result = SkinMatchAlgo.generateRoutine(profile, DB, LANG);
+    ST.result = SkinMatchAlgo.generateRoutine(profile, PRODUCTS_CATALOG, LANG);
   } else {
-    // Fallback: ancienne fonction build() legacy
     ST.result = build();
   }
   ST.showShare = false;
