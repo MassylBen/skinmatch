@@ -13,7 +13,7 @@
 
 'use strict';
 
-const CACHE_VERSION  = 'v4';
+const CACHE_VERSION  = 'v5';
 const CACHE_STATIC   = `skinmatch-static-${CACHE_VERSION}`;
 const CACHE_IMAGES   = `skinmatch-images-${CACHE_VERSION}`;
 const CACHE_DATA     = `skinmatch-data-${CACHE_VERSION}`;
