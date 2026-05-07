@@ -1122,15 +1122,6 @@ function renderResult(){
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
       ${t('btn_restart')}
     </button>
-    ${!ST.user?.id ? `
-    <div id="save-banner" style="margin-top:20px;background:linear-gradient(135deg,#3D2B1F,#5A3E30);border-radius:20px;padding:22px 20px;text-align:center;position:relative;overflow:hidden">
-      <div style="position:absolute;top:-20px;right:-20px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.05)"></div>
-      <div style="font-size:28px;margin-bottom:10px">💾</div>
-      <div style="font-family:Georgia,serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:6px">${LANG==='en'?'Save your routine':'Sauvegardez votre routine'}</div>
-      <div style="font-size:12px;color:rgba(255,255,255,.65);line-height:1.6;margin-bottom:18px">${LANG==='en'?'Create a free account to access your routine from any device and track your skin progress.':'Créez un compte gratuit pour retrouver votre routine sur tous vos appareils et suivre l\'évolution de votre peau.'}</div>
-      <button onclick="go('register')" style="width:100%;padding:14px;border-radius:50px;border:none;background:#C4726A;color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--sans);margin-bottom:10px;box-shadow:0 4px 20px rgba(196,114,106,.5)">${LANG==='en'?'Create free account':'Créer un compte gratuit'}</button>
-      <button onclick="go('login')" style="width:100%;padding:12px;border-radius:50px;border:1.5px solid rgba(255,255,255,.25);background:transparent;color:rgba(255,255,255,.8);font-size:13px;font-weight:600;cursor:pointer;font-family:var(--sans)">${LANG==='en'?'I already have an account':'J\'ai déjà un compte'}</button>
-    </div>` : ''}
   `;
 
   // Set yuka colors
@@ -1172,6 +1163,14 @@ function _buildShareText() {
 }
 
 async function openShareSheet() {
+  if (!ST.user?.id) {
+    _showSaveGate();
+    return;
+  }
+  _doShare();
+}
+
+async function _doShare() {
   const text  = _buildShareText();
   const url   = window.location.origin;
   const title = 'Ma routine SkinMatch';
@@ -1184,6 +1183,28 @@ async function openShareSheet() {
     }
   }
   _showShareFallback(text);
+}
+
+function _showSaveGate() {
+  const existing = document.getElementById('save-gate-sheet');
+  if (existing) { existing.remove(); return; }
+  const isEn = LANG === 'en';
+  const sheet = document.createElement('div');
+  sheet.id = 'save-gate-sheet';
+  sheet.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.55);display:flex;align-items:flex-end';
+  sheet.innerHTML = [
+    '<div style="width:100%;background:#fff;border-radius:24px 24px 0 0;padding:28px 20px 48px;box-shadow:0 -4px 30px rgba(0,0,0,.15)">',
+      '<div style="width:40px;height:4px;background:#E0D5D0;border-radius:2px;margin:0 auto 22px"></div>',
+      '<div style="font-size:32px;text-align:center;margin-bottom:12px">💾</div>',
+      '<div style="font-family:Georgia,serif;font-size:17px;font-weight:700;color:#2C2C2C;text-align:center;margin-bottom:8px">' + (isEn ? 'Save & share your routine' : 'Sauvegardez & partagez votre routine') + '</div>',
+      '<div style="font-size:13px;color:#6B5A55;text-align:center;line-height:1.6;margin-bottom:24px;padding:0 8px">' + (isEn ? 'Create a free account to save your routine, share it, and track your skin progress over time.' : 'Créez un compte gratuit pour sauvegarder votre routine, la partager et suivre l\'évolution de votre peau.') + '</div>',
+      '<button onclick="document.getElementById(\'save-gate-sheet\').remove();go(\'register\')" style="width:100%;padding:15px;border-radius:50px;border:none;background:linear-gradient(135deg,#C4726A,#A85A52);color:#fff;font-size:14px;font-weight:700;cursor:pointer;font-family:var(--sans);margin-bottom:10px;box-shadow:0 4px 20px rgba(196,114,106,.4)">' + (isEn ? 'Create free account' : 'Créer un compte gratuit') + '</button>',
+      '<button onclick="document.getElementById(\'save-gate-sheet\').remove();go(\'login\')" style="width:100%;padding:13px;border-radius:50px;border:1.5px solid #E0D5D0;background:#fff;color:#2C2C2C;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--sans);margin-bottom:16px">' + (isEn ? 'I already have an account' : 'J\'ai déjà un compte') + '</button>',
+      '<button onclick="document.getElementById(\'save-gate-sheet\').remove();_doShare()" style="width:100%;padding:10px;border-radius:50px;border:none;background:transparent;color:#9B8980;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--sans);text-decoration:underline;text-underline-offset:3px">' + (isEn ? 'Share without account →' : 'Partager sans compte →') + '</button>',
+    '</div>',
+  ].join('');
+  sheet.addEventListener('click', function(e){ if(e.target === sheet) sheet.remove(); });
+  document.body.appendChild(sheet);
 }
 
 function _showShareFallback(text) {
