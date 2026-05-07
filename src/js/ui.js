@@ -964,19 +964,29 @@ function yukaBadge(yuka,yl){
 
 // ─── GENERATE RESULT ──────────────────────────────────────────────────────────
 function doGenerate(){
-  // Utiliser le nouveau moteur de scoring si disponible, sinon fallback legacy
-  if (typeof SkinMatchAlgo !== 'undefined' && PRODUCTS_CATALOG !== null) {
-    const profile = {
-      skinType:  ST.skinType  || 'normale',
-      ageGroup:  ST.ageGroup  || '26-35',
-      concerns:  ST.concerns  || [],
-      allergies: ST.allergies || [],
-      budget:    ST.budget    || 'mid',
-      routine:   ST.routine   || 'simple',
-    };
-    ST.result = SkinMatchAlgo.generateRoutine(profile, PRODUCTS_CATALOG, LANG);
-  } else {
+  try {
+    // Utiliser le nouveau moteur de scoring si disponible, sinon fallback legacy
+    if (typeof SkinMatchAlgo !== 'undefined' && PRODUCTS_CATALOG !== null) {
+      const profile = {
+        skinType:  ST.skinType  || 'normale',
+        ageGroup:  ST.ageGroup  || '26-35',
+        concerns:  ST.concerns  || [],
+        allergies: ST.allergies || [],
+        budget:    ST.budget    || 'mid',
+        routine:   ST.routine   || 'simple',
+      };
+      ST.result = SkinMatchAlgo.generateRoutine(profile, PRODUCTS_CATALOG, LANG);
+    } else {
+      ST.result = build();
+    }
+    if (!ST.result || !ST.result.steps) {
+      ST.result = { steps: [], intro: t('result_routine') || 'Votre routine', conseil: '', totalPrix: 0 };
+    }
+  } catch(e) {
     ST.result = build();
+    if (!ST.result || !ST.result.steps) {
+      ST.result = { steps: [], intro: t('result_routine') || 'Votre routine', conseil: '', totalPrix: 0 };
+    }
   }
   ST.showShare = false;
   renderResult();

@@ -13,7 +13,7 @@
 
 'use strict';
 
-const CACHE_VERSION  = 'v3';
+const CACHE_VERSION  = 'v4';
 const CACHE_STATIC   = `skinmatch-static-${CACHE_VERSION}`;
 const CACHE_IMAGES   = `skinmatch-images-${CACHE_VERSION}`;
 const CACHE_DATA     = `skinmatch-data-${CACHE_VERSION}`;
@@ -50,10 +50,12 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_STATIC)
       .then(cache => {
-        // Précacher les assets essentiels (ignorer les erreurs individuelles)
+        // Précacher les assets avec cache:'reload' pour toujours obtenir la version fraîche
+        // (contourne le cache HTTP immutable du navigateur lors des mises à jour)
         return Promise.allSettled(
           PRECACHE_ASSETS.map(url =>
-            cache.add(url).catch(() => console.warn(`[SW] Précache échoué: ${url}`))
+            cache.add(new Request(url, { cache: 'reload' }))
+              .catch(() => console.warn(`[SW] Précache échoué: ${url}`))
           )
         );
       })

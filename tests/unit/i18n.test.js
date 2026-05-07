@@ -43,6 +43,23 @@ const MOCK_TRANSLATIONS = {
       { value: '26-35',    label: '26–35' },
     ],
   },
+  ar: {
+    ui: {
+      btn_start: 'ابدأ تشخيصي',
+      intro_tpl: 'روتينك المخصص لبشرة {skin}.',
+      btn_retry: 'إعادة المحاولة',
+    },
+    skin_types: {
+      grasse:  { label: 'دهنية', desc: 'زيادة الزهم' },
+      seche:   { label: 'جافة',  desc: 'نقص الدهون' },
+      mixte:   { label: 'مختلطة', desc: 'منطقة T دهنية' },
+      normale: { label: 'عادية', desc: 'متوازنة' },
+    },
+    ages: [
+      { value: 'moins-25', label: 'أقل من 25' },
+      { value: '26-35',    label: '26–35' },
+    ],
+  },
 };
 
 // Simuler un environnement browser minimal pour i18n.js

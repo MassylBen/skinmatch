@@ -293,7 +293,7 @@ function buildSteps(allProducts, profile) {
     const p = pickBest(allProducts, profile, stepType, usedIds);
     if (!p) return;
     usedIds.add(p.id);
-    steps.push({ ...p, etape: label, scoreReason: buildScoreReason(p, profile) });
+    steps.push({ ...p, key: p.id, etape: label, scoreReason: buildScoreReason(p, profile) });
   }
 
   if (profile.routine === 'simple') {
@@ -313,7 +313,7 @@ function buildSteps(allProducts, profile) {
     const serum1 = pickBestForConcern(allProducts, profile, primaryConcern, usedIds);
     if (serum1) {
       usedIds.add(serum1.id);
-      steps.push({ ...serum1, etape: 'Sérum', scoreReason: buildScoreReason(serum1, profile) });
+      steps.push({ ...serum1, key: serum1.id, etape: 'Sérum', scoreReason: buildScoreReason(serum1, profile) });
     }
 
     // Sérum secondaire (concern 2) si différent
@@ -321,7 +321,7 @@ function buildSteps(allProducts, profile) {
       const serum2 = pickBestForConcern(allProducts, profile, secondaryConcern, usedIds);
       if (serum2) {
         usedIds.add(serum2.id);
-        steps.push({ ...serum2, etape: 'Sérum ciblé', scoreReason: buildScoreReason(serum2, profile) });
+        steps.push({ ...serum2, key: serum2.id, etape: 'Sérum ciblé', scoreReason: buildScoreReason(serum2, profile) });
       }
     }
 
@@ -340,7 +340,7 @@ function buildSteps(allProducts, profile) {
     const p = pickBest(allProducts, profile, targetStep, usedIds);
     if (p) {
       usedIds.add(p.id);
-      steps.push({ ...p, etape: 'Soin ciblé', scoreReason: buildScoreReason(p, profile) });
+      steps.push({ ...p, key: p.id, etape: 'Soin ciblé', scoreReason: buildScoreReason(p, profile) });
     }
   }
 
@@ -503,6 +503,18 @@ function generateRoutine(profile, allProducts, lang = 'fr') {
 
   // 5. Prix total
   const totalPrix = steps.reduce((sum, s) => sum + (s.prix_num || 0), 0);
+
+  // Enrichir chaque step avec les champs attendus par renderResult()
+  const skinLabelsFr = { seche:'sèche', grasse:'grasse', mixte:'mixte', normale:'normale', sensible:'sensible' };
+  const skinLabelEn  = { seche:'dry', grasse:'oily', mixte:'combination', normale:'normal', sensible:'sensitive' };
+  const skinLabelMap = lang === 'en' ? skinLabelEn : skinLabelsFr;
+  steps = steps.map(s => {
+    const benText = lang === 'en' && s.ben_en ? s.ben_en : (s.ben || '');
+    const pourquoi = (lang === 'en' ? 'For ' : 'Pour votre peau ') +
+      (skinLabelMap[normalizedProfile.skinType] || normalizedProfile.skinType) + '. ' + benText;
+    const compat = Math.min(99, Math.max(72, Math.round(50 + (s.yuka || 70) * 0.4)));
+    return { ...s, pourquoi, compat };
+  });
 
   // 6. Introduction personnalisée
   const skinLabels = {
