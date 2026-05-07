@@ -33,7 +33,7 @@ export default defineConfig({
   ],
   // Serveur local automatique en dev
   webServer: {
-    command: 'python3 -m http.server 3000',
+    command: 'python3 -m http.server 3000 --directory src',
     url: 'http://localhost:3000',
     reuseExistingServer: true,
     timeout: 5000,
