@@ -75,7 +75,7 @@ const Auth = (function () {
       email,
       password,
       options: {
-        data: { lang: meta.lang || 'fr' },
+        data: { lang: meta.lang || 'fr', full_name: meta.name || '' },
         // L'email de confirmation est envoyé automatiquement par Supabase
       },
     });

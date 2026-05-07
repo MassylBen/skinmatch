@@ -138,10 +138,20 @@
         </div>
       </div>
 
-      <!-- Lien connexion discret -->
-      <div style="display:flex;align-items:center;gap:8px">
-        <button onclick="go('login')" style="padding:10px 20px;border-radius:50px;border:1.5px solid #C4726A;background:transparent;color:#C4726A;font-size:13px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif" id="btn-log">Se connecter</button>
-        <button onclick="go('register')" style="padding:10px 20px;border-radius:50px;border:none;background:#C4726A;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif" id="btn-reg">Créer un compte</button>
+      <!-- Auth zone : bascule guest ↔ connecté -->
+      <div id="guest-cta" style="display:flex;align-items:center;gap:8px">
+        <button onclick="go('login')" style="padding:10px 20px;border-radius:50px;border:1.5px solid #C4726A;background:transparent;color:#C4726A;font-size:13px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif">Se connecter</button>
+        <button onclick="go('register')" style="padding:10px 20px;border-radius:50px;border:none;background:#C4726A;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif">Créer un compte</button>
+      </div>
+      <div id="user-badge" style="display:none;flex-direction:column;align-items:center;gap:10px;width:100%;max-width:320px">
+        <div style="display:flex;align-items:center;gap:12px;background:#fff;border-radius:18px;padding:14px 18px;width:100%;box-shadow:0 2px 16px rgba(0,0,0,.08);box-sizing:border-box">
+          <div id="user-avatar" style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,#C4726A,#A85A52);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#fff;flex-shrink:0">?</div>
+          <div style="flex:1;text-align:left;min-width:0">
+            <div id="user-name-display" style="font-size:14px;font-weight:700;color:#3D2B1F">Bonjour</div>
+            <div id="user-email-display" style="font-size:11px;color:#B0958F;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></div>
+          </div>
+          <button onclick="openDashboard()" style="padding:8px 14px;border-radius:50px;border:none;background:#C4726A;color:#fff;font-size:12px;font-weight:600;cursor:pointer;font-family:'Outfit',sans-serif;flex-shrink:0">Mon espace →</button>
+        </div>
       </div>
 
       <p style="font-size:10px;color:#C8B4AE;margin-top:16px;line-height:1.5" id="btn-legal">En continuant, vous acceptez nos conditions d'utilisation.</p>
@@ -238,8 +248,9 @@
     <div class="inp-wrap"><svg width="15" height="15" viewBox="0 0 24 24" fill="#9A8B7C"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg><input id="inp-email-r" type="email" placeholder="Adresse email"></div>
     <div class="inp-wrap"><svg width="15" height="15" viewBox="0 0 24 24" fill="#9A8B7C"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><input id="inp-pw-r" type="password" placeholder="Mot de passe (6 min.)"></div>
     <div id="err-r" class="err-msg hidden"></div>
-    <button class="btn-p" onclick="doRegister()">Continuer</button>
+    <button class="btn-p" id="btn-register-submit" onclick="doRegister()">Créer mon compte</button>
     <div class="divider"><hr><span>ou</span><hr></div>
+    <button class="btn-o" onclick="doGoogleLogin()" style="gap:10px;margin-bottom:10px"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Continuer avec Google</button>
     <button class="btn-o" onclick="go('login')">J'ai déjà un compte</button>
   </div>
 </div>
@@ -251,9 +262,11 @@
     <div style="margin:22px 0"><h2>Bon retour</h2><p class="sub">Connectez-vous pour accéder à votre profil.</p></div>
     <div class="inp-wrap"><svg width="15" height="15" viewBox="0 0 24 24" fill="#9A8B7C"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg><input id="inp-email-l" type="email" placeholder="Adresse email"></div>
     <div class="inp-wrap"><svg width="15" height="15" viewBox="0 0 24 24" fill="#9A8B7C"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><input id="inp-pw-l" type="password" placeholder="Mot de passe"></div>
+    <div style="text-align:right;margin:-4px 0 10px"><button onclick="go('forgot')" style="background:none;border:none;color:#C4726A;font-size:12px;cursor:pointer;font-family:var(--sans);text-decoration:underline;padding:0">Mot de passe oublié ?</button></div>
     <div id="err-l" class="err-msg hidden"></div>
-    <button class="btn-p" onclick="doLogin()">Se connecter</button>
+    <button class="btn-p" id="btn-login-submit" onclick="doLogin()">Se connecter</button>
     <div class="divider"><hr><span>ou</span><hr></div>
+    <button class="btn-o" onclick="doGoogleLogin()" style="gap:10px;margin-bottom:10px"><svg width="16" height="16" viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>Continuer avec Google</button>
     <button class="btn-o" onclick="go('register')">Créer un compte</button>
   </div>
 </div>
@@ -405,6 +418,67 @@
       <p class="sub" id="dash-sub">Votre tableau de bord skincare personnalisé</p>
     </div>
     <div id="dashboard-content"></div>
+  </div>
+</div>
+
+<!-- ══ MOT DE PASSE OUBLIÉ ══ -->
+<div id="sc-forgot" class="hidden">
+  <div class="topbar"><button class="btn-back" onclick="go('login')">← Retour</button><div class="logo"><div class="logo-icon">SM</div>Skin<span>Match</span></div></div>
+  <div class="content">
+    <div style="margin:22px 0">
+      <h2>Mot de passe oublié</h2>
+      <p class="sub">Entrez votre email, nous vous enverrons un lien de réinitialisation.</p>
+    </div>
+    <div class="inp-wrap"><svg width="15" height="15" viewBox="0 0 24 24" fill="#9A8B7C"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg><input id="inp-forgot" type="email" placeholder="Adresse email"></div>
+    <div id="err-forgot" class="err-msg hidden"></div>
+    <button class="btn-p" id="btn-forgot-submit" onclick="doForgotPassword()">Envoyer le lien</button>
+    <button class="btn-o" onclick="go('login')" style="margin-top:10px">Retour à la connexion</button>
+  </div>
+</div>
+
+<!-- ══ MON PROFIL ══ -->
+<div id="sc-profile" class="hidden">
+  <div class="topbar"><button class="btn-back" onclick="go('dashboard')">← Retour</button><div class="logo"><div class="logo-icon">SM</div>Skin<span>Match</span></div></div>
+  <div class="content">
+    <div style="margin:8px 0 20px"><div class="step-lbl">Mon compte</div><h2 style="margin-bottom:4px">Mon profil</h2></div>
+    <div id="profile-content"></div>
+  </div>
+</div>
+
+<!-- ══ HISTORIQUE ROUTINES ══ -->
+<div id="sc-history" class="hidden">
+  <div class="topbar"><button class="btn-back" onclick="go('profile')">← Retour</button><div class="logo"><div class="logo-icon">SM</div>Skin<span>Match</span></div></div>
+  <div class="content">
+    <div style="margin:8px 0 20px"><div class="step-lbl">Mon compte</div><h2 style="margin-bottom:4px">Mes routines</h2><p class="sub">Historique de toutes vos routines générées.</p></div>
+    <div id="history-content"></div>
+  </div>
+</div>
+
+<!-- ══ PARAMÈTRES ══ -->
+<div id="sc-settings" class="hidden">
+  <div class="topbar"><button class="btn-back" onclick="go('profile')">← Retour</button><div class="logo"><div class="logo-icon">SM</div>Skin<span>Match</span></div></div>
+  <div class="content">
+    <div style="margin:8px 0 20px"><div class="step-lbl">Mon compte</div><h2 style="margin-bottom:4px">Paramètres</h2></div>
+    <!-- Changer le mot de passe -->
+    <div style="background:var(--surf);border-radius:16px;border:1px solid var(--bdr);overflow:hidden;margin-bottom:16px">
+      <div style="padding:14px 16px;font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--bdr)">🔑 Changer le mot de passe</div>
+      <div style="padding:16px">
+        <div class="inp-wrap"><svg width="15" height="15" viewBox="0 0 24 24" fill="#9A8B7C"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><input id="inp-pw-new" type="password" placeholder="Nouveau mot de passe (6 min.)"></div>
+        <div class="inp-wrap"><svg width="15" height="15" viewBox="0 0 24 24" fill="#9A8B7C"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg><input id="inp-pw-confirm" type="password" placeholder="Confirmer le nouveau mot de passe"></div>
+        <div id="err-settings" class="err-msg hidden"></div>
+        <button class="btn-p" id="btn-change-pw" onclick="doChangePassword()">Mettre à jour</button>
+      </div>
+    </div>
+    <!-- Déconnexion -->
+    <button class="btn-o" onclick="doLogout()" style="margin-bottom:12px">Se déconnecter</button>
+    <!-- Zone danger -->
+    <div style="background:#FFF5F5;border-radius:16px;border:1px solid #FFCDD2;overflow:hidden;margin-bottom:16px">
+      <div style="padding:14px 16px;font-size:11px;font-weight:700;color:#C62828;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid #FFCDD2">⚠️ Zone de danger</div>
+      <div style="padding:16px">
+        <p style="font-size:12px;color:#6B5A55;margin-bottom:14px;line-height:1.6">La suppression de votre compte est irréversible. Toutes vos routines et données de suivi seront définitivement effacées.</p>
+        <button onclick="doDeleteAccount()" style="width:100%;padding:13px;border-radius:50px;border:1.5px solid #C62828;background:transparent;color:#C62828;font-size:13px;font-weight:600;cursor:pointer;font-family:var(--sans)">Supprimer mon compte</button>
+      </div>
+    </div>
   </div>
 </div>
 

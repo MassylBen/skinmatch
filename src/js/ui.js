@@ -358,27 +358,44 @@ function applyWelcomeLang(){
   });
 }
 
-function doRegister(){
+async function doRegister(){
   const n=document.getElementById("inp-name").value.trim();
   const e=document.getElementById("inp-email-r").value.trim();
   const p=document.getElementById("inp-pw-r").value;
   const err=document.getElementById("err-r");
+  const btn=document.getElementById("btn-register-submit");
+  err.style.color="";
   if(!n){err.textContent="Veuillez entrer votre prénom.";err.classList.remove("hidden");return;}
   if(!e.includes("@")){err.textContent="Email invalide.";err.classList.remove("hidden");return;}
   if(p.length<6){err.textContent="Mot de passe : 6 caractères minimum.";err.classList.remove("hidden");return;}
   err.classList.add("hidden");
-  ST.user={name:n,email:e};
-  initQuestions();go("q1");
+  if(typeof Auth==="undefined"){ST.user={name:n,email:e};initQuestions();go("q1");return;}
+  if(btn){btn.disabled=true;btn.textContent="Création du compte…";}
+  const lang=typeof I18n!=="undefined"?I18n.getLang():"fr";
+  const {user,error}=await Auth.register(e,p,{lang,name:n});
+  if(btn){btn.disabled=false;btn.textContent="Créer mon compte";}
+  if(error){err.textContent=error;err.classList.remove("hidden");return;}
+  err.style.color="#2E7D32";
+  err.textContent="✅ Compte créé ! Vérifiez vos emails pour confirmer votre compte.";
+  err.classList.remove("hidden");
 }
-function doLogin(){
+async function doLogin(){
   const e=document.getElementById("inp-email-l").value.trim();
   const p=document.getElementById("inp-pw-l").value;
   const err=document.getElementById("err-l");
+  const btn=document.getElementById("btn-login-submit");
+  err.style.color="";
   if(!e.includes("@")){err.textContent="Email invalide.";err.classList.remove("hidden");return;}
   if(!p){err.textContent="Mot de passe requis.";err.classList.remove("hidden");return;}
   err.classList.add("hidden");
-  ST.user={name:e.split("@")[0],email:e};
-  initQuestions();go("q1");
+  if(typeof Auth==="undefined"){ST.user={name:e.split("@")[0],email:e};initQuestions();go("q1");return;}
+  if(btn){btn.disabled=true;btn.textContent="Connexion…";}
+  const {user,error}=await Auth.login(e,p);
+  if(btn){btn.disabled=false;btn.textContent="Se connecter";}
+  if(error){err.textContent=error;err.classList.remove("hidden");return;}
+  ST.user={name:user.user_metadata?.full_name||e.split("@")[0],email:e,id:user.id};
+  _updateAuthUI(true);
+  go("welcome");
 }
 
 // ─── QUESTIONS INIT ───────────────────────────────────────────────────────────
@@ -1772,6 +1789,20 @@ function renderDashboard() {
     var isEN = LANG === "en";
     wrap.innerHTML = "";
 
+    // ── Carte profil utilisateur ──
+    if (ST.user) {
+        var name    = ST.user.name || ST.user.email?.split('@')[0] || 'Vous';
+        var initial = name.charAt(0).toUpperCase();
+        var profileEl = document.createElement('div');
+        profileEl.style.cssText = 'display:flex;align-items:center;gap:14px;background:#fff;border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.07);cursor:pointer';
+        profileEl.onclick = openProfile;
+        profileEl.innerHTML = '<div style="width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#C4726A,#A85A52);display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#fff;flex-shrink:0">' + initial + '</div>' +
+            '<div style="flex:1;min-width:0"><div style="font-size:14px;font-weight:700;color:#3D2B1F">' + name + '</div>' +
+            '<div style="font-size:11px;color:#B0958F;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">' + (ST.user.email||'') + '</div></div>' +
+            '<div style="font-size:20px;color:#C4726A">›</div>';
+        wrap.appendChild(profileEl);
+    }
+
     // Streak check
     var today = new Date().toDateString();
     if (data.lastCheck !== today) {
@@ -2370,16 +2401,21 @@ document.addEventListener('skinmatch:auth', function(e) {
 });
 
 function _updateAuthUI(isLoggedIn) {
-  // Boutons login/logout sur l'écran welcome
-  const btnLogin  = document.getElementById('btn-login');
-  const btnLogout = document.getElementById('btn-logout');
-  const userBadge = document.getElementById('user-badge');
-  const userName  = document.getElementById('user-name-display');
+  const guestCta   = document.getElementById('guest-cta');
+  const userBadge  = document.getElementById('user-badge');
+  const userName   = document.getElementById('user-name-display');
+  const userEmail  = document.getElementById('user-email-display');
+  const userAvatar = document.getElementById('user-avatar');
 
-  if (btnLogin)  btnLogin.style.display  = isLoggedIn ? 'none'  : '';
-  if (btnLogout) btnLogout.style.display = isLoggedIn ? ''      : 'none';
-  if (userBadge) userBadge.style.display = isLoggedIn ? 'flex'  : 'none';
-  if (userName && ST.user?.name) userName.textContent = ST.user.name;
+  if (guestCta)  guestCta.style.display  = isLoggedIn ? 'none' : 'flex';
+  if (userBadge) userBadge.style.display  = isLoggedIn ? 'flex' : 'none';
+
+  if (isLoggedIn && ST.user) {
+    const name = ST.user.name || ST.user.email?.split('@')[0] || 'Vous';
+    if (userName)   userName.textContent  = 'Bonjour, ' + name + ' 👋';
+    if (userEmail)  userEmail.textContent = ST.user.email || '';
+    if (userAvatar) userAvatar.textContent = name.charAt(0).toUpperCase();
+  }
 }
 
 function doLogout() {
@@ -2403,6 +2439,190 @@ function doLogout() {
     }
   };
 })();
+
+// ─── Auth: Google + mot de passe oublié ───────────────────────────────────────
+
+async function doGoogleLogin() {
+  if (typeof Auth === 'undefined') { alert('Connexion Google non disponible.'); return; }
+  const { error } = await Auth.loginWithGoogle();
+  if (error) { alert(error); }
+}
+
+async function doForgotPassword() {
+  const e   = document.getElementById('inp-forgot').value.trim();
+  const err = document.getElementById('err-forgot');
+  const btn = document.getElementById('btn-forgot-submit');
+  err.style.color = '';
+  if (!e.includes('@')) { err.textContent = 'Email invalide.'; err.classList.remove('hidden'); return; }
+  err.classList.add('hidden');
+  if (btn) { btn.disabled = true; btn.textContent = 'Envoi en cours…'; }
+  if (typeof Auth === 'undefined') {
+    if (btn) { btn.disabled = false; btn.textContent = 'Envoyer le lien'; }
+    err.style.color = '#2E7D32';
+    err.textContent = '✅ Si cet email existe, vous recevrez un lien.';
+    err.classList.remove('hidden');
+    return;
+  }
+  const { error } = await Auth.resetPassword(e);
+  if (btn) { btn.disabled = false; btn.textContent = 'Envoyer le lien'; }
+  if (error) { err.textContent = error; err.classList.remove('hidden'); return; }
+  err.style.color = '#2E7D32';
+  err.textContent = '✅ Lien envoyé ! Vérifiez vos emails (et vos spams).';
+  err.classList.remove('hidden');
+}
+
+// ─── Profil utilisateur ────────────────────────────────────────────────────────
+
+function openProfile() {
+  renderProfile();
+  go('profile');
+}
+
+function renderProfile() {
+  var wrap = document.getElementById('profile-content');
+  if (!wrap) return;
+
+  if (!ST.user) {
+    wrap.innerHTML = '<div style="text-align:center;padding:40px 0"><div style="font-size:40px;margin-bottom:16px">🔒</div><p class="sub">Connectez-vous pour accéder à votre profil.</p><button class="btn-p" onclick="go(\'login\')" style="margin-top:16px">Se connecter</button></div>';
+    return;
+  }
+
+  var name    = ST.user.name || ST.user.email?.split('@')[0] || 'Vous';
+  var email   = ST.user.email || '';
+  var initials = name.charAt(0).toUpperCase();
+
+  var skinLabels   = { seche:'Sèche', grasse:'Grasse', mixte:'Mixte', normale:'Normale', sensible:'Sensible' };
+  var budgetLabels = { low:'Économe (< 30€/mois)', mid:'Modéré (30-60€)', high:'Premium (60€+)' };
+  var routineLabels= { simple:'Simplifiée (2-3 produits)', complete:'Complète (4-6 produits)', specifique:'Spécifique (ciblée)' };
+
+  var skinLabel    = skinLabels[ST.skinType]    || '—';
+  var budgetLabel  = budgetLabels[ST.budget]    || '—';
+  var routineLabel = routineLabels[ST.routine]  || '—';
+  var allergies    = (ST.allergies || []).join(', ') || 'Aucune';
+  var concerns     = (ST.concerns  || []).join(', ') || '—';
+
+  function row(icon, label, value) {
+    return '<div style="padding:14px 16px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--bdr)">' +
+      '<div style="font-size:20px;width:26px;text-align:center;flex-shrink:0">' + icon + '</div>' +
+      '<div style="flex:1"><div style="font-size:11px;color:var(--mut);margin-bottom:2px">' + label + '</div>' +
+      '<div style="font-size:14px;font-weight:600;color:var(--pri)">' + value + '</div></div></div>';
+  }
+
+  wrap.innerHTML = [
+    '<div style="display:flex;flex-direction:column;align-items:center;padding:20px 0 24px">',
+      '<div style="width:76px;height:76px;border-radius:50%;background:linear-gradient(135deg,#C4726A,#A85A52);display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:700;color:#fff;margin-bottom:12px;box-shadow:0 4px 20px rgba(196,114,106,.35)">' + initials + '</div>',
+      '<div style="font-family:Georgia,serif;font-size:22px;font-weight:700;color:#3D2B1F">' + name + '</div>',
+      '<div style="font-size:13px;color:#B0958F;margin-top:3px">' + email + '</div>',
+    '</div>',
+
+    '<div style="background:var(--surf);border-radius:16px;border:1px solid var(--bdr);overflow:hidden;margin-bottom:14px">',
+      '<div style="padding:12px 16px;font-size:11px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--bdr)">Profil peau</div>',
+      row('🧴', 'Type de peau', skinLabel),
+      row('🎯', 'Préoccupations', concerns),
+      row('⚠️', 'Allergies / Ingrédients évités', allergies),
+      row('💰', 'Budget skincare', budgetLabel),
+      row('✨', 'Type de routine', routineLabel),
+    '</div>',
+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">',
+      '<button onclick="openRoutineHistory()" style="padding:16px 10px;border-radius:16px;border:none;background:var(--blush);border:1px solid var(--rose);color:var(--acc2);font-size:12px;font-weight:700;cursor:pointer;font-family:var(--sans);display:flex;flex-direction:column;align-items:center;gap:6px">',
+        '<span style="font-size:24px">📋</span><span>Mes routines</span>',
+      '</button>',
+      '<button onclick="go(\'settings\')" style="padding:16px 10px;border-radius:16px;border:none;background:var(--surf);border:1px solid var(--bdr);color:var(--pri);font-size:12px;font-weight:700;cursor:pointer;font-family:var(--sans);display:flex;flex-direction:column;align-items:center;gap:6px">',
+        '<span style="font-size:24px">⚙️</span><span>Paramètres</span>',
+      '</button>',
+    '</div>',
+
+    '<button class="btn-o" onclick="doReset()" style="margin-bottom:10px">',
+      '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>',
+      'Refaire le questionnaire',
+    '</button>',
+  ].join('');
+}
+
+// ─── Historique des routines ───────────────────────────────────────────────────
+
+async function openRoutineHistory() {
+  go('history');
+  var wrap = document.getElementById('history-content');
+  if (!wrap) return;
+
+  wrap.innerHTML = '<div style="text-align:center;padding:40px 0;color:var(--mut)"><div style="width:32px;height:32px;border:3px solid var(--rose);border-top-color:#C4726A;border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 14px"></div>Chargement…</div>';
+
+  if (typeof DB_Client === 'undefined' || !ST.user) {
+    wrap.innerHTML = '<div style="text-align:center;padding:40px 0"><div style="font-size:40px;margin-bottom:16px">🔒</div><div style="font-size:14px;font-weight:700;color:var(--pri);margin-bottom:8px">Compte requis</div><p class="sub">Créez un compte pour sauvegarder et consulter vos routines passées.</p><button class="btn-p" onclick="go(\'register\')" style="margin-top:16px">Créer un compte</button></div>';
+    return;
+  }
+
+  var skinLabels = { seche:'Peau sèche', grasse:'Peau grasse', mixte:'Peau mixte', normale:'Peau normale', sensible:'Peau sensible' };
+  var months = ['jan','fév','mar','avr','mai','juin','juil','août','sep','oct','nov','déc'];
+
+  const { data, error } = await DB_Client.Routines.getHistory(20);
+
+  if (error || !data || data.length === 0) {
+    wrap.innerHTML = '<div style="text-align:center;padding:40px 0"><div style="font-size:40px;margin-bottom:16px">📋</div><div style="font-size:14px;font-weight:700;color:var(--pri);margin-bottom:8px">Aucune routine sauvegardée</div><p class="sub">Complétez le questionnaire pour générer votre première routine.</p><button class="btn-p" onclick="doReset()" style="margin-top:16px">Commencer</button></div>';
+    return;
+  }
+
+  wrap.innerHTML = data.map(function(r) {
+    var d    = new Date(r.created_at);
+    var date = d.getDate() + ' ' + months[d.getMonth()] + ' ' + d.getFullYear();
+    var prix = r.total_prix ? '~' + Math.round(r.total_prix) + '€' : '';
+    var snap = r.profile_snapshot || {};
+    var skin = skinLabels[snap.skinType] || '';
+    var badge= r.is_active ? '<span style="background:#2E7D32;color:#fff;font-size:10px;font-weight:700;border-radius:20px;padding:2px 8px;flex-shrink:0">Active</span>' : '';
+    var steps= (r.steps || []).slice(0, 4);
+    var more = (r.steps || []).length > 4 ? '+' + ((r.steps||[]).length - 4) : '';
+    return '<div style="background:var(--surf);border-radius:16px;border:1px solid var(--bdr);padding:16px;margin-bottom:12px">' +
+      '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">' +
+        '<div><div style="font-size:13px;font-weight:700;color:var(--pri)">' + date + '</div>' +
+        '<div style="font-size:11px;color:var(--mut);margin-top:2px">' + [skin, prix].filter(Boolean).join(' · ') + '</div></div>' +
+        badge +
+      '</div>' +
+      '<div style="display:flex;flex-wrap:wrap;gap:6px">' +
+        steps.map(function(s){ return '<span style="background:var(--blush);border:1px solid var(--rose);border-radius:8px;padding:4px 10px;font-size:11px;color:var(--acc2);font-weight:600">' + s.nom + '</span>'; }).join('') +
+        (more ? '<span style="background:var(--blush);border:1px solid var(--rose);border-radius:8px;padding:4px 10px;font-size:11px;color:var(--mut)">' + more + '</span>' : '') +
+      '</div></div>';
+  }).join('');
+}
+
+// ─── Paramètres du compte ──────────────────────────────────────────────────────
+
+async function doChangePassword() {
+  var p1  = document.getElementById('inp-pw-new').value;
+  var p2  = document.getElementById('inp-pw-confirm').value;
+  var err = document.getElementById('err-settings');
+  var btn = document.getElementById('btn-change-pw');
+  err.style.color = '';
+  if (p1.length < 6) { err.textContent = 'Mot de passe : 6 caractères minimum.'; err.classList.remove('hidden'); return; }
+  if (p1 !== p2)     { err.textContent = 'Les mots de passe ne correspondent pas.'; err.classList.remove('hidden'); return; }
+  err.classList.add('hidden');
+  if (btn) { btn.disabled = true; btn.textContent = 'Mise à jour…'; }
+
+  var sb = (typeof window.supabase !== 'undefined') ? window.supabase.createClient(window.SKINMATCH_SUPABASE_URL, window.SKINMATCH_SUPABASE_ANON_KEY) : null;
+  if (!sb) {
+    if (btn) { btn.disabled = false; btn.textContent = 'Mettre à jour'; }
+    err.textContent = 'Service indisponible.'; err.classList.remove('hidden'); return;
+  }
+  var res = await sb.auth.updateUser({ password: p1 });
+  if (btn) { btn.disabled = false; btn.textContent = 'Mettre à jour'; }
+  if (res.error) { err.textContent = res.error.message || 'Erreur.'; err.classList.remove('hidden'); return; }
+  err.style.color = '#2E7D32';
+  err.textContent = '✅ Mot de passe mis à jour.';
+  err.classList.remove('hidden');
+  document.getElementById('inp-pw-new').value = '';
+  document.getElementById('inp-pw-confirm').value = '';
+}
+
+async function doDeleteAccount() {
+  if (!confirm('⚠️ Supprimer définitivement votre compte et toutes vos données ? Cette action est irréversible.')) return;
+  if (!confirm('Dernière confirmation — supprimer mon compte SkinMatch ?')) return;
+  if (typeof Auth !== 'undefined') await Auth.logout();
+  ST.user = null; ST.skinType = null; ST.ageGroup = null; ST.concerns = []; ST.allergies = []; ST.budget = null; ST.routine = null; ST.result = null;
+  _updateAuthUI(false);
+  alert('Votre demande de suppression a été enregistrée. Un email de confirmation vous sera envoyé sous 48h.');
+  go('welcome');
+}
 
 // ─── Drapeau langue dans les topbars ──────────────────────────────────────────
 const LANG_FLAGS = { fr: '🇫🇷', en: '🇬🇧', es: '🇪🇸', de: '🇩🇪', ar: '🇸🇦' };
