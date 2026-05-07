@@ -7,12 +7,23 @@
 
 import { test, expect } from '@playwright/test';
 
+// Dismiss the region-selection modal that appears ~300ms after language selection
+async function dismissRegionModal(page) {
+  try {
+    await page.locator('#region-modal').waitFor({ state: 'visible', timeout: 1000 });
+    await page.locator('#region-list button').first().click(); // Select France
+    await page.locator('button:has-text("Confirmer")').click();
+  } catch {
+    // Modal didn't appear — no-op
+  }
+}
+
 // Helper : naviguer jusqu'au résultat avec un profil standard
 async function goToResult(page, options = {}) {
   const {
     lang = 'fr',
     skin = 'Mixte',
-    age = '26 – 35',
+    age = '26 – 35 ans',
     concerns = ['Acné / Boutons'],
     budget = 'Modéré',
     routine = 'Complète',
@@ -22,6 +33,7 @@ async function goToResult(page, options = {}) {
 
   // Sélection langue
   await page.click(`button:has-text("${lang === 'fr' ? 'Français' : 'English'}")`);
+  await dismissRegionModal(page);
 
   // Welcome → démarrer
   await expect(page.locator('#sc-welcome')).toBeVisible({ timeout: 3000 });
@@ -64,7 +76,7 @@ test.describe('Parcours questionnaire FR', () => {
   test('Parcours complet → résultat avec produits', async ({ page }) => {
     await goToResult(page);
     // Au moins un produit dans les résultats
-    await expect(page.locator('.pc')).toHaveCount({ minimum: 1 });
+    await expect(page.locator('.pc').first()).toBeVisible();
     // Bouton partager visible
     await expect(page.locator('.share-btn')).toBeVisible();
   });
@@ -72,6 +84,7 @@ test.describe('Parcours questionnaire FR', () => {
   test('Navigation retour fonctionne sur chaque étape', async ({ page }) => {
     await page.goto('/');
     await page.click('button:has-text("Français")');
+    await dismissRegionModal(page);
     await page.click('#btn-start');
 
     // Q1 → retour welcome
@@ -83,6 +96,7 @@ test.describe('Parcours questionnaire FR', () => {
   test('Bouton continuer désactivé si rien sélectionné', async ({ page }) => {
     await page.goto('/');
     await page.click('button:has-text("Français")');
+    await dismissRegionModal(page);
     await page.click('#btn-start');
 
     // Sans sélection, le bouton est disabled
@@ -115,13 +129,14 @@ test.describe('Sécurité allergies', () => {
   test('Allergie Rétinol → aucun produit avec Retinol dans la routine', async ({ page }) => {
     await page.goto('/');
     await page.click('button:has-text("Français")');
+    await dismissRegionModal(page);
     await page.click('#btn-start');
 
     // Q1 - Mixte
     await page.click('.sr >> text="Mixte"');
     await page.click('#q1-next');
-    // Q2 - 26-35
-    await page.click('.sr >> text="26 – 35"');
+    // Q2 - 26-35 ans
+    await page.click('.sr >> text="26 – 35 ans"');
     await page.click('#q2-next');
     // Q3 - Rides + allergie Rétinol
     await page.click('.chip >> text="Rides & anti-âge"');

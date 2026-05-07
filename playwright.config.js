@@ -18,10 +18,10 @@ export default defineConfig({
   },
   projects: [
     {
-      name: 'iPhone 14 (Chrome)',
+      name: 'iPhone 14 (Chromium)',
       use: {
         ...devices['iPhone 14'],
-        channel: 'chromium',
+        browserName: 'chromium',
       },
     },
     {
