@@ -2436,6 +2436,7 @@ function doLogout() {
     // Auto-save si connecté (non-bloquant)
     if (ST.result && typeof DB_Client !== 'undefined') {
       DB_Client.autoSaveRoutine(ST, ST.result);
+      DB_Client.Profiles.syncFromState(ST);
     }
   };
 })();
