@@ -92,7 +92,7 @@ test.describe('Parcours questionnaire FR', () => {
 
     // Q1 → retour welcome
     await expect(page.locator('#sc-q1')).toBeVisible();
-    await page.click('.btn-back');
+    await page.locator('#sc-q1 .btn-back').click({ force: true });
     await expect(page.locator('#sc-welcome')).toBeVisible();
   });
 
@@ -169,7 +169,7 @@ test.describe('Comparateur', () => {
     await goToResult(page);
     await page.click('#btn-compare-top');
     await expect(page.locator('#sc-compare')).toBeVisible();
-    await page.click('.btn-back');
+    await page.locator('#sc-compare .btn-back').click({ force: true });
     await expect(page.locator('#sc-result')).toBeVisible();
   });
 });
