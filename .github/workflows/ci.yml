@@ -64,7 +64,7 @@ jobs:
         run: npx playwright install --with-deps chromium webkit
 
       - name: Démarrer serveur local
-        run: python3 -m http.server 3000 &
+        run: python3 -m http.server 3000 --directory src &
         # Attendre que le serveur soit prêt
       - run: sleep 2
 
