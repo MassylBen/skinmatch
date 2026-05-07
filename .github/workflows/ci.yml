@@ -1,100 +1,100 @@
-name: CI — SkinMatch
-
-on:
-  push:
-    branches: [main, develop]
-  pull_request:
-    branches: [main]
-
-jobs:
-  # ── 1. Validation des données JSON ──────────────────────────────────────────
-  validate-data:
-    name: Validation données
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Valider products.json
-        run: python3 scripts/validate-products.py
-
-      - name: Valider translations.json
-        run: python3 scripts/validate-translations.py
-
-      - name: Valider routes.json
-        run: python3 scripts/validate-routes.py
-
-  # ── 2. Tests unitaires ──────────────────────────────────────────────────────
-  test-unit:
-    name: Tests unitaires (Vitest)
-    runs-on: ubuntu-latest
-    needs: validate-data
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - run: npm ci
-
-      - name: Tests unitaires
-        run: npm run test:unit -- --reporter=verbose
-
-  # ── 3. Tests E2E ────────────────────────────────────────────────────────────
-  test-e2e:
-    name: Tests E2E (Playwright)
-    runs-on: ubuntu-latest
-    needs: validate-data
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-          cache: 'npm'
-
-      - run: npm ci
-
-      - name: Installer browsers Playwright
-        run: npx playwright install --with-deps chromium webkit
-
-      - name: Démarrer serveur local
-        run: python3 -m http.server 3000 --directory src &
-        # Attendre que le serveur soit prêt
-      - run: sleep 2
-
-      - name: Tests E2E
-        run: npm run test:e2e
-
-      - name: Upload rapport Playwright
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 7
-
-# ── 4. Déploiement (main uniquement) ────────────────────────────────────────
-    deploy:                                   
-      name: Deploy Production                 
-      runs-on: ubuntu-latest              
-      needs: [test-unit, test-e2e]                                                                                                                                                                          
-      if: github.ref == 'refs/heads/main' && github.event_name == 'push'                                                                                                                                    
-      environment: production                                                                                                                                                                               
-      steps:                                                                                                                                                                                                
-        - uses: actions/checkout@v4                            
+name: CI — SkinMatch                                                                                                                                                                                      
                                                                                                                                                                                                             
-        - uses: actions/setup-node@v4     
-          with:                                                                                                                                                                                             
-            node-version: '20'                                                                                                                                                                              
+  on:                                                                                                                                                                                                       
+    push:                                                                                                                                                                                                   
+      branches: [main, develop]                                
+    pull_request:
+      branches: [main]                        
+                                          
+  jobs:
+    # ── 1. Validation des données JSON ──────────────────────────────────────────                                                                                                                          
+    validate-data:                            
+      name: Validation données                                                                                                                                                                              
+      runs-on: ubuntu-latest                                   
+      steps:                                                                                                                                                                                                
+        - uses: actions/checkout@v4
+                                                                                                                                                                                                            
+        - uses: actions/setup-python@v5                        
+          with:
+            python-version: '3.11'                                                                                                                                                                          
    
-        - name: Deploy sur Vercel                                                                                                                                                                           
-          run: npx vercel@latest --prod --token=${{ secrets.VERCEL_TOKEN }}
-          env:                                
-            VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+        - name: Valider products.json                                                                                                                                                                       
+          run: python3 scripts/validate-products.py            
+
+        - name: Valider translations.json                                                                                                                                                                   
+          run: python3 scripts/validate-translations.py
+                                                                                                                                                                                                            
+        - name: Valider routes.json                                                                                                                                                                         
+          run: python3 scripts/validate-routes.py
+                                                                                                                                                                                                            
+    # ── 2. Tests unitaires ──────────────────────────────────────────────────────
+    test-unit:                            
+      name: Tests unitaires (Vitest)
+      runs-on: ubuntu-latest                                                                                                                                                                                
+      needs: validate-data                
+      steps:                                                                                                                                                                                                
+        - uses: actions/checkout@v4                                                                                                                                                                         
+   
+        - uses: actions/setup-node@v4                                                                                                                                                                       
+          with:                                                
+            node-version: '20'
+            cache: 'npm'                      
+                                          
+        - run: npm ci
+                                                                                                                                                                                                            
+        - name: Tests unitaires
+          run: npm run test:unit -- --reporter=verbose                                                                                                                                                      
+                                                               
+    # ── 3. Tests E2E ────────────────────────────────────────────────────────────
+    test-e2e:
+      name: Tests E2E (Playwright)                                                                                                                                                                          
+      runs-on: ubuntu-latest                  
+      needs: validate-data                                                                                                                                                                                  
+      steps:                                                   
+        - uses: actions/checkout@v4                                                                                                                                                                         
+   
+        - uses: actions/setup-node@v4                                                                                                                                                                       
+          with:                                                
+            node-version: '20'
+            cache: 'npm'                                                                                                                                                                                    
+   
+        - run: npm ci                                                                                                                                                                                       
+                                                               
+        - name: Installer browsers Playwright 
+          run: npx playwright install --with-deps chromium webkit
+
+        - name: Démarrer serveur local                                                                                                                                                                      
+          run: python3 -m http.server 3000 --directory src &
+                                                                                                                                                                                                            
+        - run: sleep 2                                                                                                                                                                                      
+   
+        - name: Tests E2E                                                                                                                                                                                   
+          run: npm run test:e2e                                
+                                                                                                                                                                                                            
+        - name: Upload rapport Playwright                      
+          uses: actions/upload-artifact@v4
+          if: always()                        
+          with:                           
+            name: playwright-report
+            path: playwright-report/                                                                                                                                                                        
+            retention-days: 7
+                                                                                                                                                                                                            
+    # ── 4. Déploiement (main uniquement) ────────────────────────────────────────
+    deploy:                               
+      name: Deploy Production
+      runs-on: ubuntu-latest                                                                                                                                                                                
+      needs: [test-unit, test-e2e]
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'                                                                                                                                    
+      environment: production                                  
+      steps:                              
+        - uses: actions/checkout@v4
+                                                                                                                                                                                                            
+        - uses: actions/setup-node@v4
+          with:                                                                                                                                                                                             
+            node-version: '20'                                 
+                                          
+        - name: Deploy sur Vercel
+          run: npx vercel@latest --prod --token=${{ secrets.VERCEL_TOKEN }}                                                                                                                                 
+          env:
+            VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}                                                                                                                                                     
             VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
