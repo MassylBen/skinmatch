@@ -1058,12 +1058,6 @@ function renderResult(){
     <div class="ro-info"><div class="ro-name">${s.nom}</div><div class="ro-sub">${s.marque} · <span style="color:var(--acc2)">${s.moment==='AM'?t('morning_only'):s.moment==='PM'?t('evening_only'):t('both')}</span></div></div>
   </div>`).join("")}</div>`;
 
-  const shareHtml=`<div class="share-card">
-    <div class="sc-head"><div><div class="sc-ey">SkinMatch</div><div class="sc-title">Ma routine ${({seche:"sèche",grasse:"grasse",mixte:"mixte",normale:"normale",sensible:"sensible"})[ST.skinType]||""}</div>${ST.ageGroup?`<div style="font-size:11px;color:rgba(255,255,255,.6);margin-top:2px">${ST.ageGroup} ans</div>`:""}</div><div class="sc-budget"><div class="sc-budget-lbl">Budget total</div><div class="sc-budget-val">~${Math.round(r.totalPrix)}€</div></div></div>
-    ${r.steps.map(s=>`<div class="sc-item"><div><div class="sc-item-etape">${translateEtape(s.etape)}</div><div class="sc-item-name">${s.nom}</div><div class="sc-item-brand">${s.marque}</div></div><div class="sc-item-prix">${s.prix}</div></div>`).join("")}
-    <div class="sc-footer">${t("share_footer")}</div>
-  </div>`;
-
   document.getElementById("result-content").innerHTML=`
     <div class="rh">
       <div class="rey">${t('result_eyebrow')}</div>
@@ -1071,11 +1065,10 @@ function renderResult(){
       <div class="rsub">${ST.ageGroup?ST.ageGroup+(LANG==='fr'?' ans · ':' · '):''}${t('budget_total')} <strong>~${Math.round(r.totalPrix)}€</strong></div>
     </div>
     <div class="intro"><p class="intro-txt">${r.intro}</p></div>
-    <button class="share-btn" onclick="toggleShare()">
+    <button class="share-btn" onclick="openShareSheet()">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>
       ${t('share_btn')}
     </button>
-    <div id="share-card-wrap" style="display:none">${shareHtml}</div>
     <div class="ro">
       <div style="font-size:11px;font-weight:700;color:#2C2C2C;text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px">${t('order_title')}</div>
       <div class="ro-tabs">
@@ -1137,9 +1130,73 @@ function switchTab(tab){
   document.getElementById("ro-pm").style.display=tab==="pm"?"block":"none";
 }
 
-function toggleShare(){
-  ST.showShare=!ST.showShare;
-  document.getElementById("share-card-wrap").style.display=ST.showShare?"block":"none";
+function _buildShareText() {
+  const r = ST.result;
+  if (!r) return '';
+  const skinLabels = {seche:'sèche',grasse:'grasse',mixte:'mixte',normale:'normale',sensible:'sensible'};
+  const skinLabel = skinLabels[ST.skinType] || '';
+  const amSteps = r.steps.filter(function(s){ return s.moment === 'AM' || s.moment === 'AM+PM'; });
+  const pmSteps = r.steps.filter(function(s){ return s.moment === 'PM' || s.moment === 'AM+PM'; });
+  var text = '🌿 Ma routine skincare sur-mesure\nPeau ' + skinLabel + ' · ~' + Math.round(r.totalPrix) + '€\n\n';
+  if (amSteps.length) text += '☀️ Matin\n' + amSteps.map(function(s){ return '• ' + s.nom + ' (' + s.marque + ')'; }).join('\n') + '\n\n';
+  if (pmSteps.length) text += '🌙 Soir\n' + pmSteps.map(function(s){ return '• ' + s.nom + ' (' + s.marque + ')'; }).join('\n') + '\n\n';
+  text += '✨ Créez votre routine sur SkinMatch\n' + window.location.origin;
+  return text;
+}
+
+async function openShareSheet() {
+  const text  = _buildShareText();
+  const url   = window.location.origin;
+  const title = 'Ma routine SkinMatch';
+  if (navigator.share) {
+    try {
+      await navigator.share({ title: title, text: text, url: url });
+      return;
+    } catch(e) {
+      if (e.name === 'AbortError') return;
+    }
+  }
+  _showShareFallback(text);
+}
+
+function _showShareFallback(text) {
+  const existing = document.getElementById('share-sheet');
+  if (existing) { existing.remove(); return; }
+  const enc = encodeURIComponent(text);
+  const sheet = document.createElement('div');
+  sheet.id = 'share-sheet';
+  sheet.style.cssText = 'position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.5);display:flex;align-items:flex-end';
+  sheet.innerHTML = [
+    '<div style="width:100%;background:#fff;border-radius:24px 24px 0 0;padding:24px 20px 44px;box-shadow:0 -4px 30px rgba(0,0,0,.15)">',
+      '<div style="width:40px;height:4px;background:#E0D5D0;border-radius:2px;margin:0 auto 20px"></div>',
+      '<div style="font-size:15px;font-weight:700;color:#2C2C2C;margin-bottom:20px;font-family:var(--sans)">Partager ma routine</div>',
+      '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:24px">',
+        '<a href="https://twitter.com/intent/tweet?text='+enc+'" target="_blank" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:8px">',
+          '<div style="width:56px;height:56px;border-radius:16px;background:#000;display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></div>',
+          '<span style="font-size:11px;color:#6B5A55;font-family:var(--sans);font-weight:600">X / Twitter</span>',
+        '</a>',
+        '<a href="https://wa.me/?text='+enc+'" target="_blank" rel="noopener" style="text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:8px">',
+          '<div style="width:56px;height:56px;border-radius:16px;background:#25D366;display:flex;align-items:center;justify-content:center"><svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>',
+          '<span style="font-size:11px;color:#6B5A55;font-family:var(--sans);font-weight:600">WhatsApp</span>',
+        '</a>',
+        '<button id="share-copy-btn" onclick="_copyShareText()" style="background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;padding:0">',
+          '<div style="width:56px;height:56px;border-radius:16px;background:#F2EDE9;display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="#C4726A"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></div>',
+          '<span id="share-copy-lbl" style="font-size:11px;color:#6B5A55;font-family:var(--sans);font-weight:600">Copier</span>',
+        '</button>',
+      '</div>',
+      '<button onclick="document.getElementById(\'share-sheet\').remove()" style="width:100%;padding:14px;border-radius:14px;border:1.5px solid #E0D5D0;background:#fff;font-size:14px;font-weight:600;color:#6B5A55;cursor:pointer;font-family:var(--sans)">Annuler</button>',
+    '</div>',
+  ].join('');
+  sheet.addEventListener('click', function(e){ if(e.target === sheet) sheet.remove(); });
+  document.body.appendChild(sheet);
+  window._shareTextToCopy = text;
+}
+
+function _copyShareText() {
+  navigator.clipboard.writeText(window._shareTextToCopy || '').then(function() {
+    var lbl = document.getElementById('share-copy-lbl');
+    if (lbl) { lbl.textContent = 'Copié ✓'; setTimeout(function(){ lbl.textContent = 'Copier'; }, 2000); }
+  });
 }
 
 // ─── MODAL ────────────────────────────────────────────────────────────────────
